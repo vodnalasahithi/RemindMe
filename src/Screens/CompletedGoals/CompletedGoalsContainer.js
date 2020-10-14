@@ -8,6 +8,7 @@ import getAllGoalsAction from '../../redux/Goals/getAllGoalsAction';
 import { getAllCompletedGoals } from '../../redux/Goals/goalsSelectors';
 import TextComponent from '../../Components/TextComponent';
 import AddButton from '../../Components/AddButton';
+import Messages from '../../Constants/Messages';
 
 const CompletedGoalsContainer = (props) => {
   const allCompletedGoalsArray = useSelector(getAllCompletedGoals);
@@ -33,7 +34,7 @@ const CompletedGoalsContainer = (props) => {
   if (allCompletedGoalsArray.length === 0) {
     return (
       <View style={styles.loader}>
-        <TextComponent text="No Goals found" />
+        <TextComponent text={Messages.NO_GOALS_FOUND} />
         <AddButton
           navigation={props.navigation}
           routeName="AddGoal"

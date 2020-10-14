@@ -1,13 +1,14 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import {View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles';
 import Loader from '../../Components/Loader';
 import getAllRemindersAction from '../../redux/Reminders/getAllReminderAction';
-import {getCompletedReminders} from '../../redux/Reminders/addReminderSelector';
+import { getCompletedReminders } from '../../redux/Reminders/addReminderSelector';
 import TextComponent from '../../Components/TextComponent';
 import AddButton from '../../Components/AddButton';
+import Messages from '../../Constants/Messages';
 
 const CompletedRemindersContainer = (props) => {
   const completedRemindersArray = useSelector(getCompletedReminders);
@@ -33,22 +34,14 @@ const CompletedRemindersContainer = (props) => {
   if (completedRemindersArray.length === 0) {
     return (
       <View style={styles.loader}>
-        <TextComponent text="No reminders found" />
-        <AddButton
-          navigation={props.navigation}
-          routeName="AddReminder"
-          styleType={true}
-        />
+        <TextComponent text={Messages.NO_REMINDERS_FOUND} />
+        <AddButton navigation={props.navigation} routeName="AddReminder" styleType />
       </View>
     );
   }
 
   if (completedRemindersArray.length !== 0) {
-    return props.render(
-      completedRemindersArray,
-      loadAllReminders,
-      isRefreshing,
-    );
+    return props.render(completedRemindersArray, loadAllReminders, isRefreshing);
   }
 
   return (

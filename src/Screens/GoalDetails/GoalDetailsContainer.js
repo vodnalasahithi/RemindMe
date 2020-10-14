@@ -1,11 +1,11 @@
-import React, {useLayoutEffect, useCallback} from 'react';
-import {View, Alert} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useLayoutEffect, useCallback } from 'react';
+import { View, Alert } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './styles';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 import Loader from '../../Components/Loader';
-import {getAllGoals} from '../../redux/Goals/goalsSelectors';
+import { getAllGoals } from '../../redux/Goals/goalsSelectors';
 import markGoalAsCompleteAction from '../../redux/Goals/markGoalAsCompleteAction';
 import MenuButton from '../../Components/MenuButton';
 import deleteGoalAction from '../../redux/Goals/deleteGoalAction';
@@ -28,13 +28,7 @@ const GoalDetailsContainer = (props) => {
 
   useLayoutEffect(() => {
     props.navigation.setOptions({
-      headerRight: () => (
-        <MenuButton
-          onPress={deleteGoal}
-          name="trash"
-          style={styles.trashIcon}
-        />
-      ),
+      headerRight: () => <MenuButton onPress={deleteGoal} name="trash" style={styles.trashIcon} />,
     });
   }, [props.navigation, deleteGoal]);
 
@@ -52,7 +46,7 @@ const GoalDetailsContainer = (props) => {
       goalEndDate: goalDetails.goalEndDate,
       goalTime: goalDetails.goalTime,
       email: goalDetails.email,
-      daysLeft: daysLeft,
+      daysLeft,
       progress: progressValue,
       goalCompletedTime: new Date().toDateString(),
       notifyTime: goalDetails.notifyTime,
@@ -73,7 +67,7 @@ const GoalDetailsContainer = (props) => {
       goalEndDate: goalDetails.goalEndDate,
       goalTime: goalDetails.goalTime,
       email: goalDetails.email,
-      daysLeft: daysLeft,
+      daysLeft,
       progress: progressValue,
       goalCompletedTime: new Date().toDateString(),
       notifyTime: goalDetails.notifyTime,
@@ -83,32 +77,26 @@ const GoalDetailsContainer = (props) => {
   };
 
   const onConfirmGoalComplete = () => {
-    const goalCompletedTime = goalDetails.goalCompletedTime;
+    const { goalCompletedTime } = goalDetails;
 
     if (goalDetails.progress === targetedProgress) {
       Alert.alert(
         'Congratulations!',
         'Kudos! You did it.',
-        [{text: 'Dismiss', onPress: () => onGoalReached()}],
-        {cancelable: false},
+        [{ text: 'Dismiss', onPress: () => onGoalReached() }],
+        { cancelable: false }
       );
     } else {
-      goalCompletedTime === '' ||
-      goalCompletedTime !== new Date().toDateString()
+      goalCompletedTime === '' || goalCompletedTime !== new Date().toDateString()
         ? Alert.alert(
             'Congratulations!',
             'Day Conquered! Keep going.',
-            [{text: 'Dismiss', onPress: () => onSubmitOfGoalComplete()}],
-            {cancelable: false},
+            [{ text: 'Dismiss', onPress: () => onSubmitOfGoalComplete() }],
+            { cancelable: false }
           )
-        : Alert.alert(
-            'You have already marked this goal.',
-            '',
-            [{text: 'Ok'}],
-            {
-              cancelable: false,
-            },
-          );
+        : Alert.alert('You have already marked this goal.', '', [{ text: 'Ok' }], {
+            cancelable: false,
+          });
     }
   };
 
@@ -123,9 +111,7 @@ const GoalDetailsContainer = (props) => {
       daysLeft: 21,
       progress: 0,
       goalStartDate: new Date().toDateString(),
-      goalEndDate: new Date(
-        Date.now() + 20 * 24 * 60 * 60 * 1000,
-      ).toDateString(),
+      goalEndDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toDateString(),
       goalCompletedTime: '',
       notifyTime: goalDetails.notifyTime,
       notifyId: goalDetails.notifyId,
@@ -142,9 +128,9 @@ const GoalDetailsContainer = (props) => {
           text: 'Cancel',
           style: 'cancel',
         },
-        {text: 'Confirm', onPress: () => confirmOnRestartGoal()},
+        { text: 'Confirm', onPress: () => confirmOnRestartGoal() },
       ],
-      {cancelable: false},
+      { cancelable: false }
     );
   };
 

@@ -1,15 +1,15 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { ScrollView } from 'react-native-gesture-handler';
 import ReminderDetailsContainer from './ReminderDetailsContainer';
 import styles from './styles';
 import Card from '../../Components/Card';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import TextComponent from '../../Components/TextComponent';
-import {ScrollView} from 'react-native-gesture-handler';
 import ButtonComponent from '../../Components/ButtonComponent';
 
-const ReminderDetails = ({route, navigation}) => {
+const ReminderDetails = ({ route, navigation }) => {
   return (
     <ReminderDetailsContainer
       route={route}
@@ -29,23 +29,14 @@ const ReminderDetails = ({route, navigation}) => {
             />
             <View style={styles.mainContainer}>
               <Card style={styles.cardContainer}>
-                <TextComponent
-                  style={styles.textContainer}
-                  text={reminderDetails.description}
-                />
+                <TextComponent style={styles.textContainer} text={reminderDetails.description} />
                 <View style={styles.innerContainer}>
                   <Icon style={styles.iconStyle} name="calendar-alt" />
-                  <TextComponent
-                    style={styles.textStyle}
-                    text={reminderDetails.reminderDate}
-                  />
+                  <TextComponent style={styles.textStyle} text={reminderDetails.reminderDate} />
                 </View>
                 <View style={styles.innerContainer}>
                   <Icon style={styles.iconStyle} name="clock" />
-                  <TextComponent
-                    style={styles.textStyle}
-                    text={reminderDetails.reminderTime}
-                  />
+                  <TextComponent style={styles.textStyle} text={reminderDetails.reminderTime} />
                 </View>
               </Card>
               <ButtonComponent

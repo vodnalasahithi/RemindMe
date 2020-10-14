@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import {Colors} from '../Constants/Colors';
-import {authenticateAction, userLoginStatus} from '../redux/Login/loginAction';
+import { Colors } from '../Constants/Colors';
+import { authenticateAction, userLoginStatus } from '../redux/Login/loginAction';
 
 const Authenticate = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Authenticate = () => {
         return;
       }
       const transformedData = JSON.parse(userData);
-      const {token, userId, expiryDate, email} = transformedData;
+      const { token, userId, expiryDate, email } = transformedData;
       const expirationDate = new Date(expiryDate);
 
       if (expirationDate <= new Date() || !token || !userId || !email) {

@@ -1,17 +1,17 @@
 import React from 'react';
-import {View} from 'react-native';
-import {ProgressBar} from '@react-native-community/progress-bar-android';
+import { View } from 'react-native';
+import { ProgressBar } from '@react-native-community/progress-bar-android';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { ScrollView } from 'react-native-gesture-handler';
 import GoalDetailsContainer from './GoalDetailsContainer';
 import styles from './styles';
 import Card from '../../Components/Card';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import TextComponent from '../../Components/TextComponent';
-import {ScrollView} from 'react-native-gesture-handler';
 import ButtonComponent from '../../Components/ButtonComponent';
-import {Colors} from '../../Constants/Colors';
+import { Colors } from '../../Constants/Colors';
 
-const GoalDetails = ({route, navigation}) => {
+const GoalDetails = ({ route, navigation }) => {
   return (
     <GoalDetailsContainer
       route={route}
@@ -21,16 +21,10 @@ const GoalDetails = ({route, navigation}) => {
           <ScrollView>
             <View style={styles.mainContainer}>
               <Card style={styles.cardContainer}>
-                <TextComponent
-                  style={styles.textContainer}
-                  text={goalDetails.goalDescription}
-                />
+                <TextComponent style={styles.textContainer} text={goalDetails.goalDescription} />
                 <View style={styles.innerContainer}>
                   <Icon style={styles.iconStyle} name="clock" />
-                  <TextComponent
-                    style={styles.textStyle}
-                    text={goalDetails.goalTime}
-                  />
+                  <TextComponent style={styles.textStyle} text={goalDetails.goalTime} />
                 </View>
                 <TextComponent style={styles.textStyle} text="Progress : " />
                 <View style={styles.progressBar}>
@@ -44,7 +38,7 @@ const GoalDetails = ({route, navigation}) => {
                 <View style={styles.viewContainer}>
                   <TextComponent
                     style={styles.daysLeftTextStyle}
-                    text={goalDetails.daysLeft + ' days left'}
+                    text={`${goalDetails.daysLeft} days left`}
                   />
                 </View>
               </Card>

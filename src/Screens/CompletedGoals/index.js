@@ -5,6 +5,7 @@ import CompletedGoalsContainer from './CompletedGoalsContainer';
 import styles from './styles';
 import AddButton from '../../Components/AddButton';
 import GetGoalDataIntoCard from '../../Components/GetGoalDataIntoCard';
+
 const CompletedGoals = ({ navigation }) => {
   return (
     <CompletedGoalsContainer
@@ -26,11 +27,7 @@ const CompletedGoals = ({ navigation }) => {
               />
             )}
           />
-          <AddButton
-            navigation={navigation}
-            routeName="AddGoal"
-            styleType={false}
-          />
+          <AddButton navigation={navigation} routeName="AddGoal" styleType={false} />
         </View>
       )}
     />
