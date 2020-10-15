@@ -1,20 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { Colors } from '../Constants/Colors';
-const AddButton = ({ navigation, routeName, styleType }) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() => navigation.navigate(routeName, { type: false })}
-      style={styles.TouchableOpacityStyle}>
-      <Text
-        style={styleType ? styles.FloatingButtonStyle : styles.FloatingButton}>
-        +
-      </Text>
-    </TouchableOpacity>
-  );
-};
 
 const styles = StyleSheet.create({
   TouchableOpacityStyle: {
@@ -50,4 +38,23 @@ const styles = StyleSheet.create({
   },
 });
 
+const AddButton = ({ navigation, routeName, styleType }) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() => navigation.navigate(routeName, { type: false })}
+      style={styles.TouchableOpacityStyle}>
+      <Text style={styleType ? styles.FloatingButtonStyle : styles.FloatingButton}>+</Text>
+    </TouchableOpacity>
+  );
+};
+
 export default AddButton;
+
+AddButton.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  routeName: PropTypes.string.isRequired,
+  styleType: PropTypes.string.isRequired,
+};

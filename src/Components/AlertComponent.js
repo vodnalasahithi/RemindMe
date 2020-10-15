@@ -1,12 +1,6 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
-const AlertComponent = ({
-  title,
-  subTitle,
-  cancel,
-  confirm,
-  confirmFunction,
-}) => {
+const AlertComponent = ({ title, subTitle, cancel, confirm, confirmFunction }) => {
   return Alert.alert(
     title,
     subTitle,
@@ -15,9 +9,9 @@ const AlertComponent = ({
         text: cancel,
         style: 'cancel',
       },
-      {text: confirm, onPress: () => confirmFunction()},
+      { text: confirm, onPress: () => confirmFunction() },
     ],
-    {cancelable: false},
+    { cancelable: false }
   );
 };
 

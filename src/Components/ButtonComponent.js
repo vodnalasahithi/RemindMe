@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import PropTypes from 'prop-types';
 
 import Styles from '../Constants/Styles';
 
@@ -31,3 +32,14 @@ const ButtonComponent = ({
 };
 
 export default ButtonComponent;
+
+ButtonComponent.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  icon: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  container: PropTypes.string.isRequired,
+  button: PropTypes.string.isRequired,
+  iconContainer: PropTypes.string.isRequired,
+  iconStyle: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};

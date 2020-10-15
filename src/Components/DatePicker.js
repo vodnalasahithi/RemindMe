@@ -1,8 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import PropTypes from 'prop-types';
 
-const DatePicker = ({mode, date, onChange}) => {
+const DatePicker = ({ mode, date, onChange }) => {
   return (
     <View>
       <DateTimePicker
@@ -17,3 +18,9 @@ const DatePicker = ({mode, date, onChange}) => {
 };
 
 export default DatePicker;
+
+DatePicker.propTypes = {
+  mode: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

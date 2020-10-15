@@ -6,6 +6,13 @@ import { useDispatch } from 'react-redux';
 import { Colors } from '../Constants/Colors';
 import { authenticateAction, userLoginStatus } from '../redux/Login/loginAction';
 
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 const Authenticate = () => {
   const dispatch = useDispatch();
 
@@ -39,13 +46,5 @@ const Authenticate = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Authenticate;

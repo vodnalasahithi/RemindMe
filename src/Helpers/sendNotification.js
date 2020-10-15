@@ -8,12 +8,11 @@ const sendNotification = (data) => {
     message: data.reminderTime,
     date: data.notifyTime,
     allowWhileIdle: false,
-    userInfo: {id: data.notifyId},
+    userInfo: { id: data.notifyId },
   });
 };
 
 export const sendGoalNotification = (data) => {
-  console.log('goal notification success', data);
   PushNotification.localNotificationSchedule({
     invokeApp: true,
     id: data.notifyId,
@@ -21,7 +20,7 @@ export const sendGoalNotification = (data) => {
     message: data.goalTime,
     date: data.notifyTime,
     allowWhileIdle: false,
-    userInfo: {id: data.notifyId},
+    userInfo: { id: data.notifyId },
     repeatType: 'day',
   });
 };

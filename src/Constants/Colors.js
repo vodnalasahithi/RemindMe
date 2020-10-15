@@ -5,3 +5,5 @@ export const Colors = {
   WARNING: 'red',
   WARNING_ACCENT: '#FBBB04',
 };
+
+export default Colors;

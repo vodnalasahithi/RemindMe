@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import UpComingReminderContainer from './UpComingRemindersContainer';
 import styles from './styles';
 import AddButton from '../../Components/AddButton';
 import GetReminderDataIntoCard from '../../Components/GetReminderDataIntoCard';
-import { Status } from '../../Constants/Messages';
+import { Status, URLs } from '../../Constants/Messages';
 import markReminderAsMissedAction from '../../redux/Reminders/markReminderAsMissedAction';
 
 const UpComingReminders = ({ navigation }) => {
@@ -37,7 +38,7 @@ const UpComingReminders = ({ navigation }) => {
                   touchableOpacity={styles.touchableOpacity}
                   text={styles.text}
                   navigationFunction={() =>
-                    navigation.navigate('ReminderDetails', {
+                    navigation.navigate(URLs.ReminderDetails, {
                       id: itemData.item.id,
                     })
                   }
@@ -45,7 +46,7 @@ const UpComingReminders = ({ navigation }) => {
               );
             }}
           />
-          <AddButton navigation={navigation} routeName="AddReminder" styleType />
+          <AddButton navigation={navigation} routeName={URLs.AddReminder} styleType />
         </View>
       )}
     />
@@ -53,3 +54,9 @@ const UpComingReminders = ({ navigation }) => {
 };
 
 export default React.memo(UpComingReminders);
+
+UpComingReminders.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

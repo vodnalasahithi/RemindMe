@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import UpcomingGoalsContainer from './UpcomingGoalsContainer';
 import styles from './styles';
 import AddButton from '../../Components/AddButton';
 import GetGoalDataIntoCard from '../../Components/GetGoalDataIntoCard';
+import { URLs } from '../../Constants/Messages';
 
 const UpcomingGoals = ({ navigation }) => {
   return (
@@ -26,14 +28,14 @@ const UpcomingGoals = ({ navigation }) => {
                 touchableOpacity={styles.touchableOpacity}
                 text={styles.text}
                 navigationFunction={() =>
-                  navigation.navigate('GoalDetails', {
+                  navigation.navigate(URLs.GoalDetails, {
                     id: itemData.item.goalId,
                   })
                 }
               />
             )}
           />
-          <AddButton navigation={navigation} routeName="AddGoal" styleType />
+          <AddButton navigation={navigation} routeName={URLs.AddGoal} styleType />
         </View>
       )}
     />
@@ -41,3 +43,9 @@ const UpcomingGoals = ({ navigation }) => {
 };
 
 export default React.memo(UpcomingGoals);
+
+UpcomingGoals.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

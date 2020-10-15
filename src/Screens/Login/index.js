@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer, useCallback} from 'react';
+import React, { useState, useEffect, useReducer, useCallback } from 'react';
 import {
   View,
   KeyboardAvoidingView,
@@ -8,14 +8,16 @@ import {
   Alert,
   Text,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Card from '../../Components/Card';
 import Input from '../../Components/Input';
-import {Colors} from '../../Constants/Colors';
-import {signUp, login, userLoginStatus} from '../../redux/Login/loginAction';
-import formReducer, {FORM_INPUT_UPDATE} from '../../Helpers/formReducer';
+import { Colors } from '../../Constants/Colors';
+import { signUp, login, userLoginStatus } from '../../redux/Login/loginAction';
+import formReducer, { FORM_INPUT_UPDATE } from '../../Helpers/formReducer';
 import styles from './styles';
+import Messages from '../../Constants/Messages';
+
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -36,22 +38,16 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      Alert.alert('An Error Occurred!', error, [{text: 'Okay'}]);
+      Alert.alert(Messages.AN_ERROR_OCCURRED, error, [{ text: 'Okay' }]);
     }
   }, [error]);
 
   const authHandler = async () => {
     let action;
     if (isSignup) {
-      action = signUp(
-        formState.inputValues.email,
-        formState.inputValues.password,
-      );
+      action = signUp(formState.inputValues.email, formState.inputValues.password);
     } else {
-      action = login(
-        formState.inputValues.email,
-        formState.inputValues.password,
-      );
+      action = login(formState.inputValues.email, formState.inputValues.password);
     }
     setError(null);
     setIsLoading(true);
@@ -73,14 +69,11 @@ const Login = () => {
         input: inputIdentifier,
       });
     },
-    [dispatchFormState],
+    [dispatchFormState]
   );
 
   return (
-    <KeyboardAvoidingView
-      behavior="height"
-      keyboardVerticalOffset={30}
-      style={styles.screen}>
+    <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={30} style={styles.screen}>
       <Card style={styles.authContainer}>
         <ScrollView>
           <Text style={styles.title}>{isSignup ? 'Sign Up' : 'Login'}</Text>

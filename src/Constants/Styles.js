@@ -1,5 +1,5 @@
-import {Colors} from './Colors';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Colors } from './Colors';
 
 const Styles = StyleSheet.create({
   submitContainer: {
@@ -11,7 +11,7 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.TEXT,
     borderRadius: 25,
     shadowColor: Colors.PRIMARY_COLOR,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 15,
@@ -28,7 +28,7 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.TEXT,
     borderRadius: 25,
     shadowColor: Colors.PRIMARY_COLOR,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 15,
@@ -65,7 +65,7 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.TEXT,
     borderRadius: 5,
     shadowColor: Colors.PRIMARY_COLOR,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 8,
@@ -103,7 +103,7 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_COLOR,
     borderRadius: 25,
     shadowColor: Colors.PRIMARY_COLOR,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 12,
@@ -144,7 +144,7 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY_COLOR,
     borderRadius: 25,
     shadowColor: Colors.PRIMARY_COLOR,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 8,

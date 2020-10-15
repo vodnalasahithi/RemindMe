@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
 import Loader from '../../Components/Loader';
@@ -8,7 +9,7 @@ import getAllRemindersAction from '../../redux/Reminders/getAllReminderAction';
 import { getReminderDetails } from '../../redux/Reminders/addReminderSelector';
 import TextComponent from '../../Components/TextComponent';
 import AddButton from '../../Components/AddButton';
-import Messages from '../../Constants/Messages';
+import Messages, { URLs, Sizes } from '../../Constants/Messages';
 
 const UpComingReminderContainer = (props) => {
   const allRemindersArray = useSelector(getReminderDetails);
@@ -31,11 +32,19 @@ const UpComingReminderContainer = (props) => {
     loadAllReminders();
   }, [dispatch, loadAllReminders]);
 
+  if (error) {
+    return (
+      <View style={styles.loader}>
+        <TextComponent text={error} />
+      </View>
+    );
+  }
+
   if (allRemindersArray.length === 0) {
     return (
       <View style={styles.loader}>
         <TextComponent text={Messages.NO_REMINDERS_FOUND} />
-        <AddButton navigation={props.navigation} routeName="AddReminder" styleType />
+        <AddButton navigation={props.navigation} routeName={URLs.AddReminder} styleType />
       </View>
     );
   }
@@ -46,9 +55,16 @@ const UpComingReminderContainer = (props) => {
 
   return (
     <View style={styles.loader}>
-      <Loader size="large" />
+      <Loader size={Sizes.LARGE} />
     </View>
   );
 };
 
 export default UpComingReminderContainer;
+
+UpComingReminderContainer.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  render: PropTypes.func.isRequired,
+};
