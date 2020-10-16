@@ -21,6 +21,6 @@ export default DatePicker;
 
 DatePicker.propTypes = {
   mode: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
   onChange: PropTypes.func.isRequired,
 };

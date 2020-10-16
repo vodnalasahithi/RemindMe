@@ -7,13 +7,13 @@ const deleteGoalAction = (data, navigation) => {
     const userId = await getState().login.userId;
 
     const response = await fetch(
-      APIs.baseAPI + APIs.goals + userId + '/' + data.key + APIs.auth + token,
+      `${APIs.baseAPI + APIs.goals + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-      },
+      }
     );
 
     if (!response.ok) {

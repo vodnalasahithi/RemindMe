@@ -41,16 +41,14 @@ export default function (state, action) {
               }
             : {
                 ...allGoalsObject,
-              },
+              }
         ),
       };
 
     case goalsActionTypes.GOAL_REACHED:
       return {
         ...state,
-        allGoals: state.allGoals.filter(
-          (item) => action.payload.goalId !== item.goalId,
-        ),
+        allGoals: state.allGoals.filter((item) => action.payload.goalId !== item.goalId),
         completedGoals: state.completedGoals.concat(action.payload),
       };
 
@@ -69,7 +67,7 @@ export default function (state, action) {
               }
             : {
                 ...allGoalsObject,
-              },
+              }
         ),
       };
     default:

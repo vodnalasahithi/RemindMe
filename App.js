@@ -1,17 +1,17 @@
-import React, {useEffect, useCallback, useState} from 'react';
-import {Provider} from 'react-redux';
-import {NavigationContainer} from '@react-navigation/native';
+/* eslint-disable no-use-before-define */
+import React, { useEffect, useCallback, useState } from 'react';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {LogBox, Alert} from 'react-native';
-import {AppState} from 'react-native';
+import { LogBox, Alert, AppState } from 'react-native';
+
 import PushNotification from 'react-native-push-notification';
+
+import { checkNotifications, requestNotifications, openSettings } from 'react-native-permissions';
 
 import store from './src/redux/store';
 import AppNavigator from './src/Navigation/index';
 import * as RootNavigation from './src/Navigation/rootNavigation';
-import {checkNotifications} from 'react-native-permissions';
-import {requestNotifications} from 'react-native-permissions';
-import {openSettings} from 'react-native-permissions';
 
 const App = () => {
   LogBox.ignoreAllLogs();
@@ -26,15 +26,14 @@ const App = () => {
       Alert.alert(
         'TODO app need notification permission',
         'Please allow notifications for reminders',
-        [{text: 'Allow', onPress: () => openSettingsFunction()}],
-        {cancelable: false},
+        [{ text: 'Allow', onPress: () => openSettingsFunction() }],
+        { cancelable: false }
       );
     });
   };
 
   const checkNotificationsFunction = useCallback(() => {
-    checkNotifications().then(({status}) => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    checkNotifications().then(({ status }) => {
       permissionStatus = status;
       if (status !== 'granted') {
         requestPermission();
@@ -57,11 +56,11 @@ const App = () => {
     checkNotificationsFunction();
 
     PushNotification.configure({
-      onRegister: function (token) {
+      onRegister(token) {
         AsyncStorage.setItem('fcmToken', JSON.stringify(token));
       },
 
-      onNotification: function (notification) {
+      onNotification(notification) {
         console.log('NOTIFICATION:', notification);
         // notification.finish(PushNotification.FetchResult.NoData);
       },
@@ -85,10 +84,9 @@ const App = () => {
         </NavigationContainer>
       </Provider>
     );
-  } else {
-    requestPermission();
-    return null;
   }
+  requestPermission();
+  return null;
 };
 
 export default App;

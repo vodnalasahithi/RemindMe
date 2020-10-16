@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
 import Loader from '../../Components/Loader';
@@ -8,9 +9,11 @@ import getAllGoalsAction from '../../redux/Goals/getAllGoalsAction';
 import { getAllCompletedGoals } from '../../redux/Goals/goalsSelectors';
 import TextComponent from '../../Components/TextComponent';
 import AddButton from '../../Components/AddButton';
-import Messages from '../../Constants/Messages';
+import Messages, { Sizes, URLs } from '../../Constants/Messages';
 
 const CompletedGoalsContainer = (props) => {
+  const { navigation } = props;
+
   const allCompletedGoalsArray = useSelector(getAllCompletedGoals);
   const dispatch = useDispatch();
 
@@ -31,15 +34,19 @@ const CompletedGoalsContainer = (props) => {
     loadAllGoals();
   }, [dispatch, loadAllGoals]);
 
+  if (error) {
+    return (
+      <View style={styles.loader}>
+        <TextComponent text={error} />
+      </View>
+    );
+  }
+
   if (allCompletedGoalsArray.length === 0) {
     return (
       <View style={styles.loader}>
         <TextComponent text={Messages.NO_GOALS_FOUND} />
-        <AddButton
-          navigation={props.navigation}
-          routeName="AddGoal"
-          styleType={true}
-        />
+        <AddButton navigation={navigation} routeName={URLs.AddGoal} styleType />
       </View>
     );
   }
@@ -50,9 +57,16 @@ const CompletedGoalsContainer = (props) => {
 
   return (
     <View style={styles.loader}>
-      <Loader size="large" />
+      <Loader size={Sizes.LARGE} />
     </View>
   );
 };
 
 export default CompletedGoalsContainer;
+
+CompletedGoalsContainer.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  render: PropTypes.func.isRequired,
+};

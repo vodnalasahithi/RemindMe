@@ -35,11 +35,16 @@ export default ButtonComponent;
 
 ButtonComponent.propTypes = {
   onPress: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   title: PropTypes.string.isRequired,
   container: PropTypes.string.isRequired,
   button: PropTypes.string.isRequired,
   iconContainer: PropTypes.string.isRequired,
-  iconStyle: PropTypes.string.isRequired,
+  iconStyle: PropTypes.string,
   text: PropTypes.string.isRequired,
+};
+
+ButtonComponent.defaultProps = {
+  icon: undefined,
+  iconStyle: undefined,
 };

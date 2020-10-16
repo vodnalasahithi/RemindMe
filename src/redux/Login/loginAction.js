@@ -11,17 +11,17 @@ export const authenticateAction = (userId, token, expiryTime, email) => {
     dispatch(setLogoutTimer(expiryTime));
     dispatch({
       type: loginActionTypes.AUTHENTICATE,
-      userId: userId,
-      token: token,
-      email: email,
+      userId,
+      token,
+      email,
     });
   };
 };
 
 export const signUp = (email, password) => {
   const data = JSON.stringify({
-    email: email,
-    password: password,
+    email,
+    password,
     returnSecureToken: true,
   });
   return async (dispatch) => {
@@ -44,29 +44,16 @@ export const signUp = (email, password) => {
 
     const resData = await response.json();
     const expirationDateFormat = parseInt(resData.expiresIn) * 1000;
-    dispatch(
-      authenticateAction(
-        resData.localId,
-        resData.idToken,
-        expirationDateFormat,
-      ),
-    );
-    const expirationDate = new Date(
-      new Date().getTime() + expirationDateFormat,
-    );
-    saveDataToAsyncStorage(
-      resData.idToken,
-      resData.localId,
-      expirationDate,
-      resData.email,
-    );
+    dispatch(authenticateAction(resData.localId, resData.idToken, expirationDateFormat));
+    const expirationDate = new Date(new Date().getTime() + expirationDateFormat);
+    saveDataToAsyncStorage(resData.idToken, resData.localId, expirationDate, resData.email);
   };
 };
 
 export const login = (email, password) => {
   const data = JSON.stringify({
-    email: email,
-    password: password,
+    email,
+    password,
     returnSecureToken: true,
   });
   return async (dispatch) => {
@@ -91,28 +78,15 @@ export const login = (email, password) => {
 
     const resData = await response.json();
     const expirationDateFormat = parseInt(resData.expiresIn) * 1000;
-    dispatch(
-      authenticateAction(
-        resData.localId,
-        resData.idToken,
-        expirationDateFormat,
-      ),
-    );
-    const expirationDate = new Date(
-      new Date().getTime() + expirationDateFormat,
-    );
-    saveDataToAsyncStorage(
-      resData.idToken,
-      resData.localId,
-      expirationDate,
-      resData.email,
-    );
+    dispatch(authenticateAction(resData.localId, resData.idToken, expirationDateFormat));
+    const expirationDate = new Date(new Date().getTime() + expirationDateFormat);
+    saveDataToAsyncStorage(resData.idToken, resData.localId, expirationDate, resData.email);
   };
 };
 
 export const userLoginStatus = () => {
   return async (dispatch) => {
-    dispatch({type: loginActionTypes.GET_USER_LOGGING_STATUS});
+    dispatch({ type: loginActionTypes.GET_USER_LOGGING_STATUS });
   };
 };
 
@@ -120,18 +94,18 @@ const saveDataToAsyncStorage = (token, userId, expirationDate, email) => {
   AsyncStorage.setItem(
     'userData',
     JSON.stringify({
-      token: token,
-      userId: userId,
+      token,
+      userId,
       expiryDate: expirationDate.toISOString(),
-      email: email,
-    }),
+      email,
+    })
   );
 };
 
 export const logout = () => {
   clearLogoutTimer();
   AsyncStorage.removeItem('userData');
-  return {type: loginActionTypes.LOGOUT};
+  return { type: loginActionTypes.LOGOUT };
 };
 
 const clearLogoutTimer = () => {

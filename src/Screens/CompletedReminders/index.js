@@ -1,11 +1,14 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
+import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import CompletedRemindersContainer from './CompletedRemindersContainer';
 import styles from './styles';
 import AddButton from '../../Components/AddButton';
 import GetReminderDataIntoCard from '../../Components/GetReminderDataIntoCard';
-const CompletedReminders = ({navigation}) => {
+import { URLs } from '../../Constants/Messages';
+
+const CompletedReminders = ({ navigation }) => {
   return (
     <CompletedRemindersContainer
       navigation={navigation}
@@ -28,11 +31,7 @@ const CompletedReminders = ({navigation}) => {
               />
             )}
           />
-          <AddButton
-            navigation={navigation}
-            routeName="AddReminder"
-            styleType={false}
-          />
+          <AddButton navigation={navigation} routeName={URLs.AddReminder} styleType={false} />
         </View>
       )}
     />
@@ -40,3 +39,9 @@ const CompletedReminders = ({navigation}) => {
 };
 
 export default React.memo(CompletedReminders);
+
+CompletedReminders.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

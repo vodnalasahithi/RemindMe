@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import CompletedGoalsContainer from './CompletedGoalsContainer';
 import styles from './styles';
 import AddButton from '../../Components/AddButton';
 import GetGoalDataIntoCard from '../../Components/GetGoalDataIntoCard';
+import { URLs } from '../../Constants/Messages';
 
 const CompletedGoals = ({ navigation }) => {
   return (
@@ -27,7 +29,7 @@ const CompletedGoals = ({ navigation }) => {
               />
             )}
           />
-          <AddButton navigation={navigation} routeName="AddGoal" styleType={false} />
+          <AddButton navigation={navigation} routeName={URLs.AddGoal} styleType={false} />
         </View>
       )}
     />
@@ -35,3 +37,9 @@ const CompletedGoals = ({ navigation }) => {
 };
 
 export default React.memo(CompletedGoals);
+
+CompletedGoals.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

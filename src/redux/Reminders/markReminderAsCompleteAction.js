@@ -1,18 +1,13 @@
 import remindersActionTypes from './remindersActionTypes';
 import APIs from '../../config';
+
 const markReminderAsCompleteAction = (data, navigation) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
     const response = await fetch(
-      APIs.baseAPI +
-        APIs.reminders +
-        userId +
-        '/' +
-        data.key +
-        APIs.auth +
-        token,
+      `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -21,7 +16,7 @@ const markReminderAsCompleteAction = (data, navigation) => {
         body: JSON.stringify({
           status: data.status,
         }),
-      },
+      }
     );
 
     if (!response.ok) {

@@ -56,5 +56,5 @@ AddButton.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
   routeName: PropTypes.string.isRequired,
-  styleType: PropTypes.string.isRequired,
+  styleType: PropTypes.bool.isRequired,
 };

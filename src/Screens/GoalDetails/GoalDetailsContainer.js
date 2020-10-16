@@ -1,20 +1,21 @@
 import React, { useLayoutEffect, useCallback } from 'react';
 import { View, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
-import { Status } from '../../Constants/Messages';
+import Messages, { Icons, Sizes } from '../../Constants/Messages';
 import Loader from '../../Components/Loader';
 import { getAllGoals } from '../../redux/Goals/goalsSelectors';
-import markGoalAsCompleteAction from '../../redux/Goals/markGoalAsCompleteAction';
 import MenuButton from '../../Components/MenuButton';
 import deleteGoalAction from '../../redux/Goals/deleteGoalAction';
-import calculateProgressValue from '../../Helpers/calculateProgressValue';
-import restartGoalAction from '../../redux/Goals/restartGoalAction';
-import goalReachedAction from '../../redux/Goals/goalReachedAction';
+import onSubmitOfGoalComplete from './onSubmitOfGoalComplete';
+import onGoalReached from './onGoalReached';
+import confirmOnRestartGoal from './confirmOnRestartGoal';
 
 const GoalDetailsContainer = (props) => {
-  const goalID = props.route.params.id;
+  const { route, navigation } = props;
+  const goalID = route.params.id;
   const allGoalsArray = useSelector(getAllGoals);
   const dispatch = useDispatch();
 
@@ -23,112 +24,63 @@ const GoalDetailsContainer = (props) => {
   goalDetails = allGoalsArray.find((item) => item.goalId === goalID);
 
   const deleteGoal = useCallback(() => {
-    dispatch(deleteGoalAction(goalDetails, props.navigation));
-  }, [dispatch, goalDetails, props.navigation]);
+    dispatch(deleteGoalAction(goalDetails, navigation));
+  }, [dispatch, goalDetails, navigation]);
 
   useLayoutEffect(() => {
-    props.navigation.setOptions({
-      headerRight: () => <MenuButton onPress={deleteGoal} name="trash" style={styles.trashIcon} />,
+    navigation.setOptions({
+      headerRight: () => (
+        <MenuButton onPress={deleteGoal} name={Icons.TRASH} style={styles.trashIcon} />
+      ),
     });
-  }, [props.navigation, deleteGoal]);
+  }, [navigation, deleteGoal]);
 
   const targetedProgress = 0.95238096;
 
-  const onSubmitOfGoalComplete = async () => {
-    const daysLeft = await (goalDetails.daysLeft - 1);
-    const progressValue = await calculateProgressValue(daysLeft);
-    const data = {
-      key: goalDetails.key,
-      goalId: goalDetails.goalId,
-      status: goalDetails.status,
-      goalDescription: goalDetails.goalDescription,
-      goalStartDate: goalDetails.goalStartDate,
-      goalEndDate: goalDetails.goalEndDate,
-      goalTime: goalDetails.goalTime,
-      email: goalDetails.email,
-      daysLeft,
-      progress: progressValue,
-      goalCompletedTime: new Date().toDateString(),
-      notifyTime: goalDetails.notifyTime,
-      notifyId: goalDetails.notifyId,
-    };
-    dispatch(markGoalAsCompleteAction(data));
-  };
-
-  const onGoalReached = async () => {
-    const daysLeft = await (goalDetails.daysLeft - 1);
-    const progressValue = await calculateProgressValue(daysLeft);
-    const data = {
-      key: goalDetails.key,
-      goalId: goalDetails.goalId,
-      status: Status.COMPLETED,
-      goalDescription: goalDetails.goalDescription,
-      goalStartDate: goalDetails.goalStartDate,
-      goalEndDate: goalDetails.goalEndDate,
-      goalTime: goalDetails.goalTime,
-      email: goalDetails.email,
-      daysLeft,
-      progress: progressValue,
-      goalCompletedTime: new Date().toDateString(),
-      notifyTime: goalDetails.notifyTime,
-      notifyId: goalDetails.notifyId,
-    };
-    dispatch(goalReachedAction(data, props.navigation));
-  };
-
-  const onConfirmGoalComplete = () => {
+  const alertFunction = () => {
     const { goalCompletedTime } = goalDetails;
 
-    if (goalDetails.progress === targetedProgress) {
+    if (goalCompletedTime === '' || goalCompletedTime !== new Date().toDateString()) {
       Alert.alert(
-        'Congratulations!',
-        'Kudos! You did it.',
-        [{ text: 'Dismiss', onPress: () => onGoalReached() }],
+        Messages.CONGRATULATIONS,
+        Messages.DAY_CONQUERED,
+        [{ text: Messages.DISMISS, onPress: () => onSubmitOfGoalComplete(goalDetails, dispatch) }],
         { cancelable: false }
       );
     } else {
-      goalCompletedTime === '' || goalCompletedTime !== new Date().toDateString()
-        ? Alert.alert(
-            'Congratulations!',
-            'Day Conquered! Keep going.',
-            [{ text: 'Dismiss', onPress: () => onSubmitOfGoalComplete() }],
-            { cancelable: false }
-          )
-        : Alert.alert('You have already marked this goal.', '', [{ text: 'Ok' }], {
-            cancelable: false,
-          });
+      Alert.alert(Messages.ALREADY_MARKED_GOAL, '', [{ text: Messages.OK }], {
+        cancelable: false,
+      });
     }
   };
-
-  const confirmOnRestartGoal = () => {
-    const data = {
-      key: goalDetails.key,
-      goalId: goalDetails.goalId,
-      status: goalDetails.status,
-      goalDescription: goalDetails.goalDescription,
-      goalTime: goalDetails.goalTime,
-      email: goalDetails.email,
-      daysLeft: 21,
-      progress: 0,
-      goalStartDate: new Date().toDateString(),
-      goalEndDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toDateString(),
-      goalCompletedTime: '',
-      notifyTime: goalDetails.notifyTime,
-      notifyId: goalDetails.notifyId,
-    };
-    dispatch(restartGoalAction(data));
+  const onConfirmGoalComplete = () => {
+    if (goalDetails.progress === targetedProgress) {
+      Alert.alert(
+        Messages.CONGRATULATIONS,
+        Messages.KUDOS_YOU_DID_IT,
+        [
+          {
+            text: Messages.DISMISS,
+            onPress: () => onGoalReached(goalDetails, navigation, dispatch),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      alertFunction();
+    }
   };
 
   const onRestartGoal = () => {
     Alert.alert(
-      'Restart goal progress?',
+      Messages.RESTART_GOAL_PROGRESS,
       '',
       [
         {
-          text: 'Cancel',
+          text: Messages.CANCEL,
           style: 'cancel',
         },
-        { text: 'Confirm', onPress: () => confirmOnRestartGoal() },
+        { text: Messages.CONFIRM, onPress: () => confirmOnRestartGoal(goalDetails, dispatch) },
       ],
       { cancelable: false }
     );
@@ -137,7 +89,7 @@ const GoalDetailsContainer = (props) => {
   if (goalDetails === undefined) {
     return (
       <View style={styles.loader}>
-        <Loader size="large" />
+        <Loader size={Sizes.LARGE} />
       </View>
     );
   }
@@ -148,9 +100,22 @@ const GoalDetailsContainer = (props) => {
 
   return (
     <View style={styles.loader}>
-      <Loader size="large" />
+      <Loader size={Sizes.LARGE} />
     </View>
   );
 };
 
 export default GoalDetailsContainer;
+
+GoalDetailsContainer.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    setOptions: PropTypes.func.isRequired,
+  }).isRequired,
+  render: PropTypes.func.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};

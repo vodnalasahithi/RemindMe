@@ -1,9 +1,32 @@
-import React, {useReducer, useEffect} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import React, { useReducer, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
 
+const styles = StyleSheet.create({
+  formControl: {
+    width: '100%',
+  },
+  label: {
+    fontFamily: 'open-sans-bold',
+    marginVertical: 8,
+  },
+  input: {
+    paddingHorizontal: 2,
+    paddingVertical: 5,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    fontFamily: 'open-sans',
+    color: 'red',
+    fontSize: 13,
+  },
+});
 const inputReducer = (state, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
@@ -29,7 +52,7 @@ const Input = (props) => {
     touched: false,
   });
 
-  const {onInputChange, id} = props;
+  const { onInputChange, id } = props;
 
   useEffect(() => {
     if (inputState.touched) {
@@ -55,11 +78,11 @@ const Input = (props) => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
-    dispatch({type: INPUT_CHANGE, value: text, isValid: isValid});
+    dispatch({ type: INPUT_CHANGE, value: text, isValid });
   };
 
   const lostFocusHandler = () => {
-    dispatch({type: INPUT_BLUR});
+    dispatch({ type: INPUT_BLUR });
   };
 
   return (
@@ -80,29 +103,5 @@ const Input = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  formControl: {
-    width: '100%',
-  },
-  label: {
-    fontFamily: 'open-sans-bold',
-    marginVertical: 8,
-  },
-  input: {
-    paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  },
-  errorContainer: {
-    marginVertical: 5,
-  },
-  errorText: {
-    fontFamily: 'open-sans',
-    color: 'red',
-    fontSize: 13,
-  },
-});
 
 export default Input;

@@ -1,14 +1,12 @@
 import remindersActionTypes from './remindersActionTypes';
 import APIs from '../../config';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 
 const getAllRemindersAction = () => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
-    const response = await fetch(
-      APIs.baseAPI + APIs.reminders + userId + APIs.auth + token,
-    );
+    const response = await fetch(APIs.baseAPI + APIs.reminders + userId + APIs.auth + token);
     if (!response.ok) {
       const errorResData = await response.json();
       const errorMessage = errorResData.error.message;
@@ -20,7 +18,7 @@ const getAllRemindersAction = () => {
 
     for (const key in resData) {
       await loadedReminders.push({
-        key: key,
+        key,
         id: resData[key].id,
         email: resData[key].email,
         description: resData[key].description,
@@ -32,19 +30,15 @@ const getAllRemindersAction = () => {
       });
     }
 
-    let sortedReminders = await loadedReminders.sort(function (a, b) {
-      let dateA = new Date(a.reminderDate),
-        dateB = new Date(b.reminderDate);
+    const sortedReminders = await loadedReminders.sort(function (a, b) {
+      const dateA = new Date(a.reminderDate);
+      const dateB = new Date(b.reminderDate);
       return dateA - dateB;
     });
     dispatch({
       type: remindersActionTypes.GET_REMINDER_DETAILS,
-      payload: sortedReminders.filter(
-        (item) => item.status !== Status.COMPLETED,
-      ),
-      completedReminders: sortedReminders.filter(
-        (item) => item.status === Status.COMPLETED,
-      ),
+      payload: sortedReminders.filter((item) => item.status !== Status.COMPLETED),
+      completedReminders: sortedReminders.filter((item) => item.status === Status.COMPLETED),
     });
   };
 };

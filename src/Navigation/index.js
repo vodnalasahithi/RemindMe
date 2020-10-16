@@ -1,17 +1,17 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   createDrawerNavigator,
   DrawerItemList,
   DrawerItem,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './styles';
 import UpComingReminders from '../Screens/UpComingReminders';
 import AddReminder from '../Screens/AddReminder';
-import {Colors} from '../Constants/Colors';
+import { Colors } from '../Constants/Colors';
 import ReminderDetails from '../Screens/ReminderDetails';
 import UpComingGoals from '../Screens/UpcomingGoals';
 import AddGoal from '../Screens/AddGoal';
@@ -20,12 +20,9 @@ import CompletedReminders from '../Screens/CompletedReminders';
 import CompletedGoals from '../Screens/CompletedGoals';
 import MenuButton from '../Components/MenuButton';
 import Login from '../Screens/Login';
-import {
-  getUserLoginStatus,
-  getUserLoginToken,
-} from '../redux/Login/loginSelectors';
+import { getUserLoginStatus, getUserLoginToken } from '../redux/Login/loginSelectors';
 import Authenticate from '../Screens/Authenticate';
-import {logout} from '../redux/Login/loginAction';
+import { logout } from '../redux/Login/loginAction';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -57,13 +54,11 @@ const toggleFunction = (navigation) => {
 
 const UpComingRemindersNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="UpComingReminders"
-      screenOptions={defaultStackOptions}>
+    <Stack.Navigator initialRouteName="UpComingReminders" screenOptions={defaultStackOptions}>
       <Stack.Screen
         name="UpComingReminders"
         component={UpComingReminders}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerTitle: 'Upcoming Reminders',
           headerLeft: () => (
             <MenuButton
@@ -79,12 +74,12 @@ const UpComingRemindersNavigator = () => {
       <Stack.Screen
         name="AddReminder"
         component={AddReminder}
-        options={{title: 'Add Reminder'}}
+        options={{ title: 'Add Reminder' }}
       />
       <Stack.Screen
         name="ReminderDetails"
         component={ReminderDetails}
-        options={{title: 'Reminder Details'}}
+        options={{ title: 'Reminder Details' }}
       />
     </Stack.Navigator>
   );
@@ -92,13 +87,11 @@ const UpComingRemindersNavigator = () => {
 
 const UpComingGoalsNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="UpComingGoals"
-      screenOptions={defaultStackOptions}>
+    <Stack.Navigator initialRouteName="UpComingGoals" screenOptions={defaultStackOptions}>
       <Stack.Screen
         name="UpComingGoals"
         component={UpComingGoals}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerTitle: 'Goals',
           headerLeft: () => (
             <MenuButton
@@ -111,15 +104,11 @@ const UpComingGoalsNavigator = () => {
           ),
         })}
       />
-      <Stack.Screen
-        name="AddGoal"
-        component={AddGoal}
-        options={{title: 'Add Goal'}}
-      />
+      <Stack.Screen name="AddGoal" component={AddGoal} options={{ title: 'Add Goal' }} />
       <Stack.Screen
         name="GoalDetails"
         component={GoalDetails}
-        options={{title: 'Goal Details'}}
+        options={{ title: 'Goal Details' }}
       />
     </Stack.Navigator>
   );
@@ -127,13 +116,11 @@ const UpComingGoalsNavigator = () => {
 
 const CompletedRemindersNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="CompletedReminders"
-      screenOptions={defaultStackOptions}>
+    <Stack.Navigator initialRouteName="CompletedReminders" screenOptions={defaultStackOptions}>
       <Stack.Screen
         name="CompletedReminders"
         component={CompletedReminders}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerTitle: 'Completed Reminders',
           headerLeft: () => (
             <MenuButton
@@ -149,12 +136,12 @@ const CompletedRemindersNavigator = () => {
       <Stack.Screen
         name="AddReminder"
         component={AddReminder}
-        options={{title: 'Add Reminder'}}
+        options={{ title: 'Add Reminder' }}
       />
       <Stack.Screen
         name="ReminderDetails"
         component={ReminderDetails}
-        options={{title: 'Reminder Details'}}
+        options={{ title: 'Reminder Details' }}
       />
     </Stack.Navigator>
   );
@@ -162,13 +149,11 @@ const CompletedRemindersNavigator = () => {
 
 const CompletedGoalsNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="CompletedGoals"
-      screenOptions={defaultStackOptions}>
+    <Stack.Navigator initialRouteName="CompletedGoals" screenOptions={defaultStackOptions}>
       <Stack.Screen
         name="CompletedGoals"
         component={CompletedGoals}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerTitle: 'Completed Goals',
           headerLeft: () => (
             <MenuButton
@@ -181,11 +166,7 @@ const CompletedGoalsNavigator = () => {
           ),
         })}
       />
-      <Stack.Screen
-        name="AddGoal"
-        component={AddGoal}
-        options={{title: 'Add Goal'}}
-      />
+      <Stack.Screen name="AddGoal" component={AddGoal} options={{ title: 'Add Goal' }} />
     </Stack.Navigator>
   );
 };
@@ -239,19 +220,10 @@ const AppDrawer = () => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       drawerContentOptions={drawerContentOptions}>
-      <Drawer.Screen
-        name="Upcoming Reminders"
-        component={UpComingRemindersNavigator}
-      />
-      <Drawer.Screen
-        name="Completed Reminders"
-        component={CompletedRemindersNavigator}
-      />
+      <Drawer.Screen name="Upcoming Reminders" component={UpComingRemindersNavigator} />
+      <Drawer.Screen name="Completed Reminders" component={CompletedRemindersNavigator} />
       <Drawer.Screen name="Upcoming Goals" component={UpComingGoalsNavigator} />
-      <Drawer.Screen
-        name="Completed Goals"
-        component={CompletedGoalsNavigator}
-      />
+      <Drawer.Screen name="Completed Goals" component={CompletedGoalsNavigator} />
     </Drawer.Navigator>
   );
 };

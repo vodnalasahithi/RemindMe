@@ -1,6 +1,6 @@
 import goalsActionTypes from './goalsActionTypes';
 import APIs from '../../config';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
 
 const goalReachedAction = (data, navigation) => {
@@ -9,7 +9,7 @@ const goalReachedAction = (data, navigation) => {
     const userId = await getState().login.userId;
 
     const response = await fetch(
-      APIs.baseAPI + APIs.goals + userId + '/' + data.key + APIs.auth + token,
+      `${APIs.baseAPI + APIs.goals + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -21,7 +21,7 @@ const goalReachedAction = (data, navigation) => {
           progress: data.progress,
           goalCompletedTime: data.goalCompletedTime,
         }),
-      },
+      }
     );
 
     if (!response.ok) {

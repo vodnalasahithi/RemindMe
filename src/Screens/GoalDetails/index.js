@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ProgressBar } from '@react-native-community/progress-bar-android';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,6 +11,7 @@ import Card from '../../Components/Card';
 import TextComponent from '../../Components/TextComponent';
 import ButtonComponent from '../../Components/ButtonComponent';
 import { Colors } from '../../Constants/Colors';
+import Messages, { Icons } from '../../Constants/Messages';
 
 const GoalDetails = ({ route, navigation }) => {
   return (
@@ -23,10 +25,10 @@ const GoalDetails = ({ route, navigation }) => {
               <Card style={styles.cardContainer}>
                 <TextComponent style={styles.textContainer} text={goalDetails.goalDescription} />
                 <View style={styles.innerContainer}>
-                  <Icon style={styles.iconStyle} name="clock" />
+                  <Icon style={styles.iconStyle} name={Icons.CLOCK} />
                   <TextComponent style={styles.textStyle} text={goalDetails.goalTime} />
                 </View>
-                <TextComponent style={styles.textStyle} text="Progress : " />
+                <TextComponent style={styles.textStyle} text={Messages.PROGRESS_VALUE} />
                 <View style={styles.progressBar}>
                   <ProgressBar
                     styleAttr="Horizontal"
@@ -38,14 +40,14 @@ const GoalDetails = ({ route, navigation }) => {
                 <View style={styles.viewContainer}>
                   <TextComponent
                     style={styles.daysLeftTextStyle}
-                    text={`${goalDetails.daysLeft} days left`}
+                    text={`${goalDetails.daysLeft}${Messages.DAYS_LEFT}`}
                   />
                 </View>
               </Card>
               <ButtonComponent
-                title="Mark as complete"
+                title={Messages.MARK_AS_COMPLETE}
                 onPress={onConfirmGoalComplete}
-                icon="check"
+                icon={Icons.CHECK}
                 container="submitContainer"
                 button="markAsCompleteButton"
                 iconContainer="submitIconContainer"
@@ -53,7 +55,7 @@ const GoalDetails = ({ route, navigation }) => {
                 text="submitText"
               />
               <ButtonComponent
-                title="Missed it! Start again"
+                title={Messages.MISSED_IT_START_AGAIN}
                 onPress={onRestartGoal}
                 container="missedButtonSubmitContainer"
                 button="missedButton"
@@ -69,3 +71,14 @@ const GoalDetails = ({ route, navigation }) => {
 };
 
 export default GoalDetails;
+
+GoalDetails.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};

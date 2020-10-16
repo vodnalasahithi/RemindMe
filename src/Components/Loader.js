@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
-import {Colors} from '../Constants/Colors';
+import { Colors } from '../Constants/Colors';
 
-const Loader = ({size}) => {
+const Loader = ({ size }) => {
   return <ActivityIndicator size={size} color={Colors.PRIMARY_COLOR} />;
 };
 

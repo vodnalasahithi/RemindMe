@@ -1,4 +1,4 @@
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 import remindersActionTypes from './remindersActionTypes';
 
 const initialState = {
@@ -27,9 +27,7 @@ export default function (state, action) {
     case remindersActionTypes.MARK_REMINDER_AS_COMPLETE:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.filter(
-          (item) => action.payload.id !== item.id,
-        ),
+        reminderDetails: state.reminderDetails.filter((item) => action.payload.id !== item.id),
         completedReminders: state.completedReminders.concat(action.payload),
       };
 
@@ -48,7 +46,7 @@ export default function (state, action) {
               }
             : {
                 ...allRemindersObject,
-              },
+              }
         ),
       };
     case remindersActionTypes.MARK_REMINDER_AS_MISSED:
@@ -62,15 +60,13 @@ export default function (state, action) {
               }
             : {
                 ...allRemindersObject,
-              },
+              }
         ),
       };
     case remindersActionTypes.DELETE_REMINDER:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.filter(
-          (item) => action.payload !== item,
-        ),
+        reminderDetails: state.reminderDetails.filter((item) => action.payload !== item),
       };
 
     default:

@@ -1,11 +1,12 @@
 import goalsActionTypes from './goalsActionTypes';
 import APIs from '../../config';
+
 const markGoalAsCompleteAction = (data) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
     const response = await fetch(
-      APIs.baseAPI + APIs.goals + userId + '/' + data.key + APIs.auth + token,
+      `${APIs.baseAPI + APIs.goals + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -16,7 +17,7 @@ const markGoalAsCompleteAction = (data) => {
           progress: data.progress,
           goalCompletedTime: data.goalCompletedTime,
         }),
-      },
+      }
     );
 
     if (!response.ok) {

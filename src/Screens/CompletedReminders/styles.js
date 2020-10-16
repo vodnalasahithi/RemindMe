@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { Colors } from "../../Constants/Colors";
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../Constants/Colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,9 +7,9 @@ const styles = StyleSheet.create({
   },
   loader: {
     flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   cardContainer: {
     padding: 10,
@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontStyle: "normal",
+    fontStyle: 'normal',
     color: Colors.TEXT,
-    fontWeight: "normal",
+    fontWeight: 'normal',
   },
 
   touchableOpacity: {

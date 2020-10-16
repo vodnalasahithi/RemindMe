@@ -8,13 +8,7 @@ const editReminderAction = (data) => {
     const userId = await getState().login.userId;
 
     const response = await fetch(
-      APIs.baseAPI +
-        APIs.reminders +
-        userId +
-        '/' +
-        data.key +
-        APIs.auth +
-        token,
+      `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -27,7 +21,7 @@ const editReminderAction = (data) => {
           status: data.status,
           notifyTime: data.notifyTime,
         }),
-      },
+      }
     );
 
     if (!response.ok) {

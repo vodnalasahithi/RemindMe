@@ -1,20 +1,14 @@
 import remindersActionTypes from './remindersActionTypes';
 import APIs from '../../config';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
+
 const markReminderAsMissedAction = (data) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
-    console.log('mark as missed function--------------', data);
     if (data.key !== undefined) {
       const response = await fetch(
-        APIs.baseAPI +
-          APIs.reminders +
-          userId +
-          '/' +
-          data.key +
-          APIs.auth +
-          token,
+        `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
         {
           method: 'PATCH',
           headers: {
@@ -23,7 +17,7 @@ const markReminderAsMissedAction = (data) => {
           body: JSON.stringify({
             status: Status.MISSED,
           }),
-        },
+        }
       );
 
       if (!response.ok) {

@@ -1,14 +1,12 @@
 import goalsActionTypes from './goalsActionTypes';
 import APIs from '../../config';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 
 const getAllGoalsAction = () => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
-    const response = await fetch(
-      APIs.baseAPI + APIs.goals + userId + APIs.auth + token,
-    );
+    const response = await fetch(APIs.baseAPI + APIs.goals + userId + APIs.auth + token);
 
     if (!response.ok) {
       const errorResData = await response.json();
@@ -21,7 +19,7 @@ const getAllGoalsAction = () => {
 
     for (const key in resData) {
       await loadedGoals.push({
-        key: key,
+        key,
         goalId: resData[key].goalId,
         email: resData[key].email,
         goalDescription: resData[key].goalDescription,
@@ -40,9 +38,7 @@ const getAllGoalsAction = () => {
     dispatch({
       type: goalsActionTypes.GET_ALL_GOALS,
       payload: loadedGoals.filter((item) => item.status !== Status.COMPLETED),
-      completedGoals: loadedGoals.filter(
-        (item) => item.status === Status.COMPLETED,
-      ),
+      completedGoals: loadedGoals.filter((item) => item.status === Status.COMPLETED),
     });
   };
 };

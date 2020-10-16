@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Colors } from '../Constants/Colors';
 import Card from './Card';
-import { Icons } from '../Constants/Messages';
+import Messages, { Icons } from '../Constants/Messages';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -65,7 +65,7 @@ const GetGoalDataIntoCard = ({
                 {goalDescription}
               </Text>
               {daysLeft !== 0 ? (
-                <Text style={text}>{`${daysLeft} days left`}</Text>
+                <Text style={text}>{`${daysLeft} ${Messages.DAYS_LEFT}`}</Text>
               ) : (
                 <Text style={styles.italicText}>Kudos! You did it.</Text>
               )}
@@ -86,8 +86,13 @@ GetGoalDataIntoCard.propTypes = {
   daysLeft: PropTypes.number.isRequired,
   goalDescription: PropTypes.string.isRequired,
   goalId: PropTypes.string.isRequired,
-  cardContainer: PropTypes.string.isRequired,
-  touchableOpacity: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  navigationFunction: PropTypes.func.isRequired,
+  cardContainer: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+  touchableOpacity: PropTypes.shape(PropTypes.any.isRequired),
+  text: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+  navigationFunction: PropTypes.func,
+};
+
+GetGoalDataIntoCard.defaultProps = {
+  touchableOpacity: undefined,
+  navigationFunction: undefined,
 };

@@ -1,28 +1,21 @@
 import remindersActionTypes from './remindersActionTypes';
 import APIs from '../../config';
 import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
-import {Status} from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 
 const deleteReminderAction = (data, navigation) => {
-  console.log('deleted data', data);
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
     const response = await fetch(
-      APIs.baseAPI +
-        APIs.reminders +
-        userId +
-        '/' +
-        data.key +
-        APIs.auth +
-        token,
+      `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
       {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-      },
+      }
     );
 
     if (!response.ok) {

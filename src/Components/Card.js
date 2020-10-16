@@ -20,6 +20,6 @@ const Card = (props) => {
 export default Card;
 
 Card.propTypes = {
-  style: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  style: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
