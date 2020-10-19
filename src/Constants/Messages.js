@@ -35,9 +35,19 @@ const Messages = {
 
   IOS: 'ios',
 
+  USER_DATA: 'userData',
   // Date picker modes
   DATE: 'date',
   TIME: 'time',
+
+  // Notifications
+  CANNOT_OPEN_SETTINGS: 'Cannot open settings',
+  REQUIRE_NOTIFICATION_PERMISSION: 'TODO app needs notification permission',
+  ALLOW_NOTIFICATION: 'Please allow notifications for reminders',
+  GRANTED: 'granted',
+  CHANGE: 'change',
+  FCM_TOKEN: 'fcmToken',
+  BLOCKED: 'blocked',
 };
 
 export const Status = {

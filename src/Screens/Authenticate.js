@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Colors } from '../Constants/Colors';
 import { authenticateAction, userLoginStatus } from '../redux/Login/loginAction';
+import Messages, { Sizes } from '../Constants/Messages';
 
 const styles = StyleSheet.create({
   screen: {
@@ -18,7 +19,7 @@ const Authenticate = () => {
 
   useEffect(() => {
     const tryLogin = async () => {
-      const userData = await AsyncStorage.getItem('userData');
+      const userData = await AsyncStorage.getItem(Messages.USER_DATA);
       if (!userData) {
         dispatch(userLoginStatus());
         return;
@@ -42,7 +43,7 @@ const Authenticate = () => {
 
   return (
     <View style={styles.screen}>
-      <ActivityIndicator size="large" color={Colors.primary} />
+      <ActivityIndicator size={Sizes.LARGE} color={Colors.primary} />
     </View>
   );
 };

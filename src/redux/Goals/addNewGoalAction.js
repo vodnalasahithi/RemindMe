@@ -22,7 +22,7 @@ const addNewGoalAction = (data) => {
       throw new Error(errorMessage);
     }
 
-    const resData = await response.json();
+    // const resData = await response.json();
     sendGoalNotification(data);
 
     dispatch({

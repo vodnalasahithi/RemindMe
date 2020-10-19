@@ -4,28 +4,27 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LogBox, Alert, AppState } from 'react-native';
-
 import PushNotification from 'react-native-push-notification';
-
 import { checkNotifications, requestNotifications, openSettings } from 'react-native-permissions';
 
 import store from './src/redux/store';
 import AppNavigator from './src/Navigation/index';
 import * as RootNavigation from './src/Navigation/rootNavigation';
+import Messages from './src/Constants/Messages';
 
 const App = () => {
   LogBox.ignoreAllLogs();
   let permissionStatus;
 
   const openSettingsFunction = async () => {
-    await openSettings().catch(() => console.warn('cannot open settings'));
+    await openSettings().catch(() => console.warn(Messages.CANNOT_OPEN_SETTINGS));
     await checkNotificationsFunction();
   };
   const requestPermission = () => {
     requestNotifications(['alert', 'sound']).then(() => {
       Alert.alert(
-        'TODO app need notification permission',
-        'Please allow notifications for reminders',
+        Messages.REQUIRE_NOTIFICATION_PERMISSION,
+        Messages.ALLOW_NOTIFICATION,
         [{ text: 'Allow', onPress: () => openSettingsFunction() }],
         { cancelable: false }
       );
@@ -35,7 +34,7 @@ const App = () => {
   const checkNotificationsFunction = useCallback(() => {
     checkNotifications().then(({ status }) => {
       permissionStatus = status;
-      if (status !== 'granted') {
+      if (status !== Messages.GRANTED) {
         requestPermission();
       }
     });
@@ -47,9 +46,9 @@ const App = () => {
     setAppState(state);
   };
   useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange);
+    AppState.addEventListener(Messages.CHANGE, handleAppStateChange);
     return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
+      AppState.removeEventListener(Messages.CHANGE, handleAppStateChange);
     };
   }, []);
   useEffect(() => {
@@ -57,7 +56,7 @@ const App = () => {
 
     PushNotification.configure({
       onRegister(token) {
-        AsyncStorage.setItem('fcmToken', JSON.stringify(token));
+        AsyncStorage.setItem(Messages.FCM_TOKEN, JSON.stringify(token));
       },
 
       onNotification(notification) {
@@ -76,7 +75,7 @@ const App = () => {
     });
   }, [appState, checkNotificationsFunction]);
 
-  if (permissionStatus !== 'blocked') {
+  if (permissionStatus !== Messages.BLOCKED) {
     return (
       <Provider store={store}>
         <NavigationContainer ref={RootNavigation.navigationRef}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { Colors } from '../Constants/Colors';
 
@@ -8,3 +9,7 @@ const Loader = ({ size }) => {
 };
 
 export default Loader;
+
+Loader.propTypes = {
+  size: PropTypes.string.isRequired,
+};

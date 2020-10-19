@@ -1,5 +1,7 @@
 import React from 'react';
 import { TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+
 import { Colors } from '../Constants/Colors';
 
 const styles = StyleSheet.create({
@@ -41,3 +43,8 @@ const TextInputComponent = ({ onChangeText, value }) => {
 };
 
 export default TextInputComponent;
+
+TextInputComponent.propTypes = {
+  onChangeText: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
