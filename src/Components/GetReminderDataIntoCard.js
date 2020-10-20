@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { Colors } from '../Constants/Colors';
 import Card from './Card';
@@ -73,3 +74,20 @@ const GetReminderDataIntoCard = ({
 };
 
 export default GetReminderDataIntoCard;
+
+GetReminderDataIntoCard.propTypes = {
+  time: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  cardContainer: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+  touchableOpacity: PropTypes.shape(PropTypes.any.isRequired),
+  text: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+  navigationFunction: PropTypes.func,
+};
+
+GetReminderDataIntoCard.defaultProps = {
+  touchableOpacity: undefined,
+  navigationFunction: undefined,
+};

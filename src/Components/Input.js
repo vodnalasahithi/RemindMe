@@ -1,6 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
+import { EMAIL_REGULAR_EXPRESSION } from '../Constants/Messages';
+
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
 
@@ -61,7 +63,7 @@ const Input = (props) => {
   }, [inputState, onInputChange, id]);
 
   const textChangeHandler = (text) => {
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex = EMAIL_REGULAR_EXPRESSION;
     let isValid = true;
     if (props.required && text.trim().length === 0) {
       isValid = false;

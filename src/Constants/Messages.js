@@ -79,5 +79,6 @@ export const Icons = {
   EXCLAMATIONCIRCLEO: 'exclamationcircleo',
   RUNNING: 'running',
 };
+export const EMAIL_REGULAR_EXPRESSION = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default Messages;
