@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useReducer, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { EMAIL_REGULAR_EXPRESSION } from '../Constants/Messages';
 
@@ -48,13 +50,12 @@ const inputReducer = (state, action) => {
 };
 
 const Input = (props) => {
+  const { initialValue, initiallyValid, onInputChange, id, label, errorText } = props;
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue ? props.initialValue : '',
-    isValid: props.initiallyValid,
+    value: initialValue || '',
+    isValid: initiallyValid,
     touched: false,
   });
-
-  const { onInputChange, id } = props;
 
   useEffect(() => {
     if (inputState.touched) {
@@ -89,7 +90,7 @@ const Input = (props) => {
 
   return (
     <View style={styles.formControl}>
-      <Text style={styles.label}>{props.label}</Text>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
         {...props}
         style={styles.input}
@@ -99,7 +100,7 @@ const Input = (props) => {
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{props.errorText}</Text>
+          <Text style={styles.errorText}>{errorText}</Text>
         </View>
       )}
     </View>
@@ -107,3 +108,25 @@ const Input = (props) => {
 };
 
 export default Input;
+
+Input.propTypes = {
+  initialValue: PropTypes.string.isRequired,
+  initiallyValid: PropTypes.string,
+  onInputChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  errorText: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
+  minLength: PropTypes.number,
+  max: PropTypes.bool,
+  min: PropTypes.bool,
+  email: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  initiallyValid: undefined,
+  minLength: undefined,
+  max: undefined,
+  min: undefined,
+  email: undefined,
+};

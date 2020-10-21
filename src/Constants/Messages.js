@@ -57,12 +57,12 @@ export const Status = {
 };
 
 export const URLs = {
-  AddReminder: 'AddReminder',
-  ReminderDetails: 'ReminderDetails',
-  AddGoal: 'AddGoal',
-  GoalDetails: 'GoalDetails',
-  UpComingReminders: 'UpComingReminders',
-  UpComingGoals: 'UpComingGoals',
+  AddReminder: 'Add Reminder',
+  ReminderDetails: 'Reminder Details',
+  AddGoal: 'Add Goal',
+  GoalDetails: 'Goal Details',
+  UpComingReminders: 'UpComing Reminders',
+  UpComingGoals: 'UpComing Goals',
 };
 
 export const Sizes = {
