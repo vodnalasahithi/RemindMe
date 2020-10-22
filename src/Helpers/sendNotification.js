@@ -6,7 +6,7 @@ const sendNotification = (data) => {
     id: data.notifyId,
     title: data.description,
     message: data.reminderTime,
-    date: data.notifyTime,
+    date: new Date(data.notifyTime),
     allowWhileIdle: false,
     userInfo: { id: data.notifyId },
   });
@@ -18,7 +18,7 @@ export const sendGoalNotification = (data) => {
     id: data.notifyId,
     title: data.goalDescription,
     message: data.goalTime,
-    date: data.notifyTime,
+    date: new Date(data.notifyTime),
     allowWhileIdle: false,
     userInfo: { id: data.notifyId },
     repeatType: 'day',

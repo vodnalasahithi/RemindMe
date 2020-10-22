@@ -1,27 +1,23 @@
 import remindersActionTypes from './remindersActionTypes';
-import APIs from '../../config';
+import APIs, { Method } from '../../config';
 import sendNotification from '../../Helpers/sendNotification';
+import apiServiceWrapper from '../../apiServiceWrapper';
 
 const editReminderAction = (data) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
-    const response = await fetch(
+    const response = await apiServiceWrapper(
       `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          description: data.description,
-          reminderDate: data.reminderDate,
-          reminderTime: data.reminderTime,
-          status: data.status,
-          notifyTime: data.notifyTime,
-        }),
-      }
+      Method.PATCH,
+      JSON.stringify({
+        description: data.description,
+        reminderDate: data.reminderDate,
+        reminderTime: data.reminderTime,
+        status: data.status,
+        notifyTime: data.notifyTime,
+      })
     );
 
     if (!response.ok) {
@@ -30,7 +26,6 @@ const editReminderAction = (data) => {
       throw new Error(errorMessage);
     }
 
-    const resData = await response.json();
     await sendNotification(data);
 
     dispatch({

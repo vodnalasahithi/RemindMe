@@ -1,20 +1,19 @@
-import APIs from '../../config';
+import APIs, { Method } from '../../config';
 import goalsActionTypes from './goalsActionTypes';
 import getAllGoalsAction from './getAllGoalsAction';
 import { sendGoalNotification } from '../../Helpers/sendNotification';
+import apiServiceWrapper from '../../apiServiceWrapper';
 
 const addNewGoalAction = (data) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
-    const response = await fetch(APIs.baseAPI + APIs.goals + userId + APIs.auth + token, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await apiServiceWrapper(
+      APIs.baseAPI + APIs.goals + userId + APIs.auth + token,
+      Method.POST,
+      JSON.stringify(data)
+    );
 
     if (!response.ok) {
       const errorResData = await response.json();
@@ -22,8 +21,7 @@ const addNewGoalAction = (data) => {
       throw new Error(errorMessage);
     }
 
-    // const resData = await response.json();
-    sendGoalNotification(data);
+    await sendGoalNotification(data);
 
     dispatch({
       type: goalsActionTypes.ADD_NEW_GOAL,

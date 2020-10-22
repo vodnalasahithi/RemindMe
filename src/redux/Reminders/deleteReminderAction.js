@@ -1,21 +1,17 @@
 import remindersActionTypes from './remindersActionTypes';
-import APIs from '../../config';
+import APIs, { Method } from '../../config';
 import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
-import { Status } from '../../Constants/Messages';
+import { Status, URLs } from '../../Constants/Messages';
+import apiServiceWrapper from '../../apiServiceWrapper';
 
 const deleteReminderAction = (data, navigation) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
-    const response = await fetch(
+    const response = await apiServiceWrapper(
       `${APIs.baseAPI + APIs.reminders + userId}/${data.key}${APIs.auth}${token}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+      Method.DELETE
     );
 
     if (!response.ok) {
@@ -23,8 +19,6 @@ const deleteReminderAction = (data, navigation) => {
       const errorMessage = errorResData.error.message;
       throw new Error(errorMessage);
     }
-
-    const resData = await response.json();
 
     if (data.status === Status.PENDING) {
       await cancelScheduledNotification(JSON.stringify(data.notifyId));
@@ -34,7 +28,7 @@ const deleteReminderAction = (data, navigation) => {
       type: remindersActionTypes.DELETE_REMINDER,
       payload: data,
     });
-    navigation.goBack('UpComingReminders');
+    navigation.goBack(URLs.UpComingReminders);
   };
 };
 

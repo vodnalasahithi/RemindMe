@@ -24,7 +24,7 @@ import Login from '../Screens/Login';
 import { getUserLoginStatus, getUserLoginToken } from '../redux/Login/loginSelectors';
 import Authenticate from '../Screens/Authenticate';
 import { logout } from '../redux/Login/loginAction';
-import { URLs } from '../Constants/Messages';
+import Messages, { URLs } from '../Constants/Messages';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -98,7 +98,7 @@ const UpComingGoalsNavigator = () => {
         name={URLs.UpComingGoals}
         component={UpComingGoals}
         options={({ navigation }) => ({
-          headerTitle: 'Goals',
+          headerTitle: Messages.GOALS_TITLE,
           headerLeft: () => menuButton(navigation),
         })}
       />
@@ -149,18 +149,23 @@ const CompletedGoalsNavigator = () => {
         })}
       />
       <Stack.Screen name={URLs.AddGoal} component={AddGoal} options={{ title: URLs.AddGoal }} />
+      <Stack.Screen
+        name={URLs.GoalDetails}
+        component={GoalDetails}
+        options={{ title: URLs.GoalDetails }}
+      />
     </Stack.Navigator>
   );
 };
 
 const LoginNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName={URLs.Login}>
       <Stack.Screen
-        name="Login"
+        name={URLs.Login}
         component={Login}
         options={{
-          headerTitle: 'TODO',
+          headerTitle: Messages.APP_TITLE,
           headerTitleAlign: 'center',
           headerStyle: {
             height: 70,
@@ -188,7 +193,7 @@ const CustomDrawerContent = (props) => {
         inactiveTintColor={Colors.TEXT}
         activeBackgroundColor={Colors.ACCENT_COLOR}
         labelStyle={drawerContentOptions.labelStyle}
-        label="Logout"
+        label={URLs.Logout}
         onPress={() => {
           dispatch(logout());
         }}
@@ -202,10 +207,10 @@ const AppDrawer = () => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       drawerContentOptions={drawerContentOptions}>
-      <Drawer.Screen name="Upcoming Reminders" component={UpComingRemindersNavigator} />
-      <Drawer.Screen name="Completed Reminders" component={CompletedRemindersNavigator} />
-      <Drawer.Screen name="Upcoming Goals" component={UpComingGoalsNavigator} />
-      <Drawer.Screen name="Completed Goals" component={CompletedGoalsNavigator} />
+      <Drawer.Screen name={URLs.UpComingReminders} component={UpComingRemindersNavigator} />
+      <Drawer.Screen name={URLs.CompletedReminders} component={CompletedRemindersNavigator} />
+      <Drawer.Screen name={URLs.UpComingGoals} component={UpComingGoalsNavigator} />
+      <Drawer.Screen name={URLs.CompletedGoals} component={CompletedGoalsNavigator} />
     </Drawer.Navigator>
   );
 };

@@ -21,8 +21,7 @@ const AddReminderContainer = (props) => {
   const [date, setDate] = useState(new Date());
   const [reminderTime, setReminderTime] = useState(screenType ? reminderDetails.reminderTime : '');
   const [reminderDate, setReminderDate] = useState(screenType ? reminderDetails.reminderDate : '');
-
-  const [notifyTime, setNotifyTime] = useState('');
+  const [notifyTime, setNotifyTime] = useState(screenType ? reminderDetails.notifyTime : '');
 
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState(Messages.DATE);

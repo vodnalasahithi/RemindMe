@@ -1,4 +1,6 @@
 const Messages = {
+  APP_TITLE: 'TODO',
+  GOALS_TITLE: 'Goals',
   MISSED_WARNING: 'Missed reminder !',
   TODAY: 'Today',
   VALIDATION_MESSAGE: 'Please enter the details',
@@ -21,6 +23,15 @@ const Messages = {
   MISSED_IT_START_AGAIN: 'Missed it! Start again',
   TOTAL_DAYS: 21,
   REMIND_ME_AT: 'Remind me at',
+
+  // LOGIN
+  SOMETHING_WENT_WRONG: 'Something went wrong!',
+  EMAIL_EXISTS: 'EMAIL_EXISTS',
+  EMAIL_ALREADY_EXISTS: 'This email exists already!',
+  EMAIL_NOT_FOUND: 'EMAIL_NOT_FOUND',
+  THIS_EMAIL_COULD_NOT_BE_FOUND: 'This email could not be found!',
+  INVALID_PASSWORD: 'INVALID_PASSWORD',
+  THIS_PASSWORD_IS_NOT_VALID: 'This password is not valid!',
 
   // Alert messages
   CONGRATULATIONS: 'Congratulations!',
@@ -61,8 +72,12 @@ export const URLs = {
   ReminderDetails: 'Reminder Details',
   AddGoal: 'Add Goal',
   GoalDetails: 'Goal Details',
-  UpComingReminders: 'UpComing Reminders',
+  UpComingReminders: 'Upcoming Reminders',
   UpComingGoals: 'UpComing Goals',
+  CompletedReminders: 'Completed Reminders',
+  CompletedGoals: 'Completed Goals',
+  Login: 'Login',
+  Logout: 'Logout',
 };
 
 export const Sizes = {

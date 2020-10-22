@@ -1,10 +1,32 @@
 /* eslint-disable radix */
 import AsyncStorage from '@react-native-community/async-storage';
+import apiServiceWrapper from '../../apiServiceWrapper';
 
 import loginActionTypes from './loginType';
-import APIs from '../../config';
+import APIs, { Method } from '../../config';
+import Messages from '../../Constants/Messages';
 
 let timer;
+
+const clearLogoutTimer = () => {
+  if (timer) {
+    clearTimeout(timer);
+  }
+};
+
+export const logout = () => {
+  clearLogoutTimer();
+  AsyncStorage.removeItem(Messages.USER_DATA);
+  return { type: loginActionTypes.LOGOUT };
+};
+
+const setLogoutTimer = (expirationTime) => {
+  return (dispatch) => {
+    timer = setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
+};
 
 export const authenticateAction = (userId, token, expiryTime, email) => {
   return (dispatch) => {
@@ -18,6 +40,17 @@ export const authenticateAction = (userId, token, expiryTime, email) => {
   };
 };
 
+const saveDataToAsyncStorage = (token, userId, expirationDate, email) => {
+  AsyncStorage.setItem(
+    Messages.USER_DATA,
+    JSON.stringify({
+      token,
+      userId,
+      expiryDate: expirationDate.toISOString(),
+      email,
+    })
+  );
+};
 export const signUp = (email, password) => {
   const data = JSON.stringify({
     email,
@@ -25,19 +58,14 @@ export const signUp = (email, password) => {
     returnSecureToken: true,
   });
   return async (dispatch) => {
-    const response = await fetch(APIs.signUp, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: data,
-    });
+    const response = await apiServiceWrapper(APIs.signUp, Method.POST, data);
+
     if (!response.ok) {
       const errorResData = await response.json();
       const errorId = errorResData.error.message;
-      let message = 'Something went wrong!';
-      if (errorId === 'EMAIL_EXISTS') {
-        message = 'This email exists already!';
+      let message = Messages.SOMETHING_WENT_WRONG;
+      if (errorId === Messages.EMAIL_EXISTS) {
+        message = Messages.EMAIL_ALREADY_EXISTS;
       }
       throw new Error(message);
     }
@@ -57,21 +85,16 @@ export const login = (email, password) => {
     returnSecureToken: true,
   });
   return async (dispatch) => {
-    const response = await fetch(APIs.signIn, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: data,
-    });
+    const response = await apiServiceWrapper(APIs.signIn, Method.POST, data);
+
     if (!response.ok) {
       const errorResData = await response.json();
       const errorId = errorResData.error.message;
-      let message = 'Something went wrong!';
-      if (errorId === 'EMAIL_NOT_FOUND') {
-        message = 'This email could not be found!';
-      } else if (errorId === 'INVALID_PASSWORD') {
-        message = 'This password is not valid!';
+      let message = Messages.SOMETHING_WENT_WRONG;
+      if (errorId === Messages.EMAIL_NOT_FOUND) {
+        message = Messages.THIS_EMAIL_COULD_NOT_BE_FOUND;
+      } else if (errorId === Messages.INVALID_PASSWORD) {
+        message = Messages.THIS_PASSWORD_IS_NOT_VALID;
       }
       throw new Error(message);
     }
@@ -87,37 +110,5 @@ export const login = (email, password) => {
 export const userLoginStatus = () => {
   return async (dispatch) => {
     dispatch({ type: loginActionTypes.GET_USER_LOGGING_STATUS });
-  };
-};
-
-const saveDataToAsyncStorage = (token, userId, expirationDate, email) => {
-  AsyncStorage.setItem(
-    'userData',
-    JSON.stringify({
-      token,
-      userId,
-      expiryDate: expirationDate.toISOString(),
-      email,
-    })
-  );
-};
-
-export const logout = () => {
-  clearLogoutTimer();
-  AsyncStorage.removeItem('userData');
-  return { type: loginActionTypes.LOGOUT };
-};
-
-const clearLogoutTimer = () => {
-  if (timer) {
-    clearTimeout(timer);
-  }
-};
-
-const setLogoutTimer = (expirationTime) => {
-  return (dispatch) => {
-    timer = setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime);
   };
 };

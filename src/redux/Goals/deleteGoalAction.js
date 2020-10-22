@@ -1,19 +1,17 @@
 import goalsActionTypes from './goalsActionTypes';
-import APIs from '../../config';
+import APIs, { Method } from '../../config';
+import apiServiceWrapper from '../../apiServiceWrapper';
+import { URLs, Status } from '../../Constants/Messages';
+import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
 
 const deleteGoalAction = (data, navigation) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
-    const response = await fetch(
+    const response = await apiServiceWrapper(
       `${APIs.baseAPI + APIs.goals + userId}/${data.key}${APIs.auth}${token}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+      Method.DELETE
     );
 
     if (!response.ok) {
@@ -22,12 +20,15 @@ const deleteGoalAction = (data, navigation) => {
       throw new Error(errorMessage);
     }
 
-    const resData = await response.json();
+    if (data.status === Status.PENDING) {
+      await cancelScheduledNotification(JSON.stringify(data.notifyId));
+    }
+
     dispatch({
       type: goalsActionTypes.DELETE_GOAL,
       payload: data,
     });
-    navigation.goBack('UpComingGoals');
+    navigation.goBack(URLs.UpComingGoals);
   };
 };
 

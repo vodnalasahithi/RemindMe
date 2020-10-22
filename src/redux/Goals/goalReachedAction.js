@@ -1,27 +1,23 @@
 import goalsActionTypes from './goalsActionTypes';
-import APIs from '../../config';
-import { Status } from '../../Constants/Messages';
+import APIs, { Method } from '../../config';
+import { Status, URLs } from '../../Constants/Messages';
 import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
+import apiServiceWrapper from '../../apiServiceWrapper';
 
 const goalReachedAction = (data, navigation) => {
   return async (dispatch, getState) => {
     const token = await getState().login.token;
     const userId = await getState().login.userId;
 
-    const response = await fetch(
+    const response = await apiServiceWrapper(
       `${APIs.baseAPI + APIs.goals + userId}/${data.key}${APIs.auth}${token}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          status: data.status,
-          daysLeft: data.daysLeft,
-          progress: data.progress,
-          goalCompletedTime: data.goalCompletedTime,
-        }),
-      }
+      Method.PATCH,
+      JSON.stringify({
+        status: data.status,
+        daysLeft: data.daysLeft,
+        progress: data.progress,
+        goalCompletedTime: data.goalCompletedTime,
+      })
     );
 
     if (!response.ok) {
@@ -30,7 +26,6 @@ const goalReachedAction = (data, navigation) => {
       throw new Error(errorMessage);
     }
 
-    const resData = await response.json();
     if (data.status === Status.COMPLETED) {
       await cancelScheduledNotification(JSON.stringify(data.notifyId));
     }
@@ -39,7 +34,7 @@ const goalReachedAction = (data, navigation) => {
       type: goalsActionTypes.GOAL_REACHED,
       payload: data,
     });
-    navigation.goBack('UpComingGoals');
+    navigation.goBack(URLs.UpComingGoals);
   };
 };
 
