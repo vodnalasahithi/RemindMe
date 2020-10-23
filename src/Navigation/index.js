@@ -24,7 +24,7 @@ import Login from '../Screens/Login';
 import { getUserLoginStatus, getUserLoginToken } from '../redux/Login/loginSelectors';
 import Authenticate from '../Screens/Authenticate';
 import { logout } from '../redux/Login/loginAction';
-import Messages, { URLs } from '../Constants/Messages';
+import Messages, { Icons, URLs } from '../Constants/Messages';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -60,7 +60,7 @@ const menuButton = (navigation) => {
       onPress={() => {
         toggleFunction(navigation);
       }}
-      name="menu"
+      name={Icons.MENU}
       style={styles.iconContainer}
     />
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 export const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
 const formReducer = (state, action) => {
@@ -12,7 +13,9 @@ const formReducer = (state, action) => {
     };
     let updatedFormIsValid = true;
     for (const key in updatedValidities) {
-      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
+      if (Object.prototype.hasOwnProperty.call(updatedValidities, key)) {
+        updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
+      }
     }
     return {
       formIsValid: updatedFormIsValid,
