@@ -1,5 +1,5 @@
 const Messages = {
-  APP_TITLE: 'TODO',
+  APP_TITLE: 'Remind Me',
   GOALS_TITLE: 'Goals',
   MISSED_WARNING: 'Missed reminder !',
   TODAY: 'Today',
@@ -53,7 +53,7 @@ const Messages = {
 
   // Notifications
   CANNOT_OPEN_SETTINGS: 'Cannot open settings',
-  REQUIRE_NOTIFICATION_PERMISSION: 'TODO app needs notification permission',
+  REQUIRE_NOTIFICATION_PERMISSION: 'Remind Me app needs notification permission',
   ALLOW_NOTIFICATION: 'Please allow notifications for reminders',
   GRANTED: 'granted',
   CHANGE: 'change',
