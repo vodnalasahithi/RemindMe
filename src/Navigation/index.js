@@ -174,7 +174,7 @@ const LoginNavigator = () => {
           headerTintColor: Colors.TEXT,
           headerTitleStyle: {
             fontWeight: 'bold',
-            fontSize: 40,
+            fontSize: 36,
           },
         }}
       />
