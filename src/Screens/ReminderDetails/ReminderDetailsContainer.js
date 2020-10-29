@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Status, Sizes, URLs, Icons } from '../../Constants/Messages';
 import styles from './styles';
 import Loader from '../../Components/Loader';
-import { getReminderDetails } from '../../redux/Reminders/addReminderSelector';
+import { getAllReminders } from '../../redux/Reminders/addReminderSelector';
 import markReminderAsCompleteAction from '../../redux/Reminders/markReminderAsCompleteAction';
 import MenuButton from '../../Components/MenuButton';
 import deleteReminderAction from '../../redux/Reminders/deleteReminderAction';
@@ -17,7 +17,7 @@ const ReminderDetailsContainer = (props) => {
 
   const reminderID = route.params.id;
 
-  const allRemindersArray = useSelector(getReminderDetails);
+  const allRemindersArray = useSelector(getAllReminders);
   const dispatch = useDispatch();
 
   reminderDetails = allRemindersArray.find((item) => item.id === reminderID);

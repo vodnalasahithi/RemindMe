@@ -69,6 +69,12 @@ const AddReminderContainer = (props) => {
       setTimeout(() => {
         setIsValid(false);
       }, 1000);
+    } else if (notifyTime <= new Date()) {
+      setMessage(Messages.ENTER_FUTURE_TIME);
+      setIsValid(true);
+      setTimeout(() => {
+        setIsValid(false);
+      }, 1000);
     } else {
       const data = {
         id: uuId,
@@ -87,21 +93,35 @@ const AddReminderContainer = (props) => {
   };
 
   const onReminderEditSubmit = () => {
-    const data = {
-      id: reminderDetails.id,
-      key: reminderDetails.key,
-      description,
-      reminderDate,
-      reminderTime,
-      status: Status.PENDING,
-      notifyTime,
-      notifyId: reminderDetails.notifyId,
-    };
-    setIsValid(false);
-    dispatch(editReminderAction(data));
-    navigation.navigate(URLs.ReminderDetails, {
-      id: data.id,
-    });
+    if (description === '' || reminderDate === '' || reminderTime === '') {
+      setMessage(Messages.VALIDATION_MESSAGE);
+      setIsValid(true);
+      setTimeout(() => {
+        setIsValid(false);
+      }, 1000);
+    } else if (notifyTime <= new Date()) {
+      setMessage(Messages.ENTER_FUTURE_TIME);
+      setIsValid(true);
+      setTimeout(() => {
+        setIsValid(false);
+      }, 1000);
+    } else {
+      const data = {
+        id: reminderDetails.id,
+        key: reminderDetails.key,
+        description,
+        reminderDate,
+        reminderTime,
+        status: Status.PENDING,
+        notifyTime,
+        notifyId: reminderDetails.notifyId,
+      };
+      setIsValid(false);
+      dispatch(editReminderAction(data));
+      navigation.navigate(URLs.ReminderDetails, {
+        id: data.id,
+      });
+    }
   };
   return props.render(
     inputHandleChange,

@@ -28,6 +28,13 @@ const CompletedReminders = ({ navigation }) => {
                 id={itemData.item.id}
                 cardContainer={styles.cardContainer}
                 text={styles.text}
+                touchableOpacity={styles.touchableOpacity}
+                navigationFunction={() =>
+                  navigation.navigate(URLs.ReminderDetails, {
+                    id: itemData.item.id,
+                    // reminderDetails: itemData.item,
+                  })
+                }
               />
             )}
           />

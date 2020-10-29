@@ -2,6 +2,7 @@ import remindersActionTypes from './remindersActionTypes';
 import APIs, { Method } from '../../config';
 import apiServiceWrapper from '../../apiServiceWrapper';
 import { URLs } from '../../Constants/Messages';
+import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
 
 const markReminderAsCompleteAction = (data, navigation) => {
   return async (dispatch, getState) => {
@@ -21,6 +22,8 @@ const markReminderAsCompleteAction = (data, navigation) => {
       const errorMessage = errorResData.error.message;
       throw new Error(errorMessage);
     }
+
+    await cancelScheduledNotification(JSON.stringify(data.notifyId));
 
     dispatch({
       type: remindersActionTypes.MARK_REMINDER_AS_COMPLETE,

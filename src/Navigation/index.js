@@ -205,6 +205,7 @@ const CustomDrawerContent = (props) => {
 const AppDrawer = () => {
   return (
     <Drawer.Navigator
+      initialRouteName={URLs.UpComingReminders}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       drawerContentOptions={drawerContentOptions}>
       <Drawer.Screen name={URLs.UpComingReminders} component={UpComingRemindersNavigator} />

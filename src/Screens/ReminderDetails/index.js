@@ -9,7 +9,7 @@ import styles from './styles';
 import Card from '../../Components/Card';
 import TextComponent from '../../Components/TextComponent';
 import ButtonComponent from '../../Components/ButtonComponent';
-import Messages, { Icons } from '../../Constants/Messages';
+import Messages, { Icons, Status } from '../../Constants/Messages';
 
 const ReminderDetails = ({ route, navigation }) => {
   return (
@@ -41,16 +41,18 @@ const ReminderDetails = ({ route, navigation }) => {
                   <TextComponent style={styles.textStyle} text={reminderDetails.reminderTime} />
                 </View>
               </Card>
-              <ButtonComponent
-                title={Messages.MARK_AS_COMPLETE}
-                onPress={onSubmitOfReminderComplete}
-                icon={Icons.CHECK}
-                container="submitContainer"
-                button="markAsCompleteButton"
-                iconContainer="submitIconContainer"
-                iconStyle="submitIconStyle"
-                text="submitText"
-              />
+              {reminderDetails.status === Status.COMPLETED ? null : (
+                <ButtonComponent
+                  title={Messages.MARK_AS_COMPLETE}
+                  onPress={onSubmitOfReminderComplete}
+                  icon={Icons.CHECK}
+                  container="submitContainer"
+                  button="markAsCompleteButton"
+                  iconContainer="submitIconContainer"
+                  iconStyle="submitIconStyle"
+                  text="submitText"
+                />
+              )}
             </View>
           </ScrollView>
         </View>

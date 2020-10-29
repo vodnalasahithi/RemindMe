@@ -10,7 +10,7 @@ const TextComponent = (props) => {
 export default TextComponent;
 
 TextComponent.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   style: PropTypes.shape(PropTypes.any.isRequired),
 };
 

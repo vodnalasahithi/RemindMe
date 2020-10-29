@@ -5,16 +5,24 @@ const getReminderDetailsSelector = (state) => {
 };
 
 export const getPendingReminders = (state) => {
-  const pendingReminders = getReminderDetailsSelector(state).reminderDetails.filter(
+  const pendingReminders = getReminderDetailsSelector(state).allReminders.filter(
     (item) => item.status !== Status.MISSED
   );
   return pendingReminders;
 };
 
 export const getReminderDetails = (state) => {
-  return getReminderDetailsSelector(state).reminderDetails;
+  return getReminderDetailsSelector(state).allReminders.filter(
+    (item) => item.status !== Status.COMPLETED
+  );
+};
+
+export const getAllReminders = (state) => {
+  return getReminderDetailsSelector(state).allReminders;
 };
 
 export const getCompletedReminders = (state) => {
-  return getReminderDetailsSelector(state).completedReminders;
+  return getReminderDetailsSelector(state).allReminders.filter(
+    (item) => item.status === Status.COMPLETED
+  );
 };

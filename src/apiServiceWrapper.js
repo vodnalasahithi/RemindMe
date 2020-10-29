@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { Headers } from './config';
 
 function apiServiceWrapper(path, methodType, data) {

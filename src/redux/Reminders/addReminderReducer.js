@@ -2,8 +2,7 @@ import { Status } from '../../Constants/Messages';
 import remindersActionTypes from './remindersActionTypes';
 
 const initialState = {
-  reminderDetails: [],
-  completedReminders: [],
+  allReminders: [],
 };
 
 export default function (state, action) {
@@ -14,27 +13,35 @@ export default function (state, action) {
     case remindersActionTypes.GET_REMINDER_DETAILS:
       return {
         ...state,
-        reminderDetails: action.payload,
-        completedReminders: action.completedReminders,
+        allReminders: action.payload,
       };
 
     case remindersActionTypes.ADD_NEW_REMINDER:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.concat(action.payload),
+        allReminders: state.allReminders.concat(action.payload),
       };
 
     case remindersActionTypes.MARK_REMINDER_AS_COMPLETE:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.filter((item) => action.payload.id !== item.id),
-        completedReminders: state.completedReminders.concat(action.payload),
+
+        allReminders: state.allReminders.map((allRemindersObject) =>
+          allRemindersObject.id === action.payload.id
+            ? {
+                ...allRemindersObject,
+                status: action.payload.status,
+              }
+            : {
+                ...allRemindersObject,
+              }
+        ),
       };
 
     case remindersActionTypes.EDIT_REMINDER:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.map((allRemindersObject) =>
+        allReminders: state.allReminders.map((allRemindersObject) =>
           allRemindersObject.id === action.payload.id
             ? {
                 ...allRemindersObject,
@@ -52,7 +59,7 @@ export default function (state, action) {
     case remindersActionTypes.MARK_REMINDER_AS_MISSED:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.map((allRemindersObject) =>
+        allReminders: state.allReminders.map((allRemindersObject) =>
           allRemindersObject.id === action.payload.id
             ? {
                 ...allRemindersObject,
@@ -66,7 +73,7 @@ export default function (state, action) {
     case remindersActionTypes.DELETE_REMINDER:
       return {
         ...state,
-        reminderDetails: state.reminderDetails.filter((item) => action.payload !== item),
+        allReminders: state.allReminders.filter((item) => action.payload !== item),
       };
 
     default:

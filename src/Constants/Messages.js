@@ -4,6 +4,7 @@ const Messages = {
   MISSED_WARNING: 'Missed reminder !',
   TODAY: 'Today',
   VALIDATION_MESSAGE: 'Please enter the details',
+  ENTER_FUTURE_TIME: 'Please enter a future time',
   NO_GOALS_FOUND: 'No Goals found',
   NO_REMINDERS_FOUND: 'No reminders found',
   MARK_AS_COMPLETE: 'Mark as complete',
@@ -95,6 +96,6 @@ export const Icons = {
   RUNNING: 'running',
   MENU: 'menu',
 };
-export const EMAIL_REGULAR_EXPRESSION = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const EMAIL_REGULAR_EXPRESSION = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default Messages;

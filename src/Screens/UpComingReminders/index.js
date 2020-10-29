@@ -40,6 +40,7 @@ const UpComingReminders = ({ navigation }) => {
                   navigationFunction={() =>
                     navigation.navigate(URLs.ReminderDetails, {
                       id: itemData.item.id,
+                      // reminderDetails: itemData.item,
                     })
                   }
                 />

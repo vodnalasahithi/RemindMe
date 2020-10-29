@@ -1,7 +1,7 @@
 import remindersActionTypes from './remindersActionTypes';
 import APIs, { Method } from '../../config';
 import cancelScheduledNotification from '../../Helpers/cancelScheduledNotification';
-import { Status, URLs } from '../../Constants/Messages';
+import { Status } from '../../Constants/Messages';
 import apiServiceWrapper from '../../apiServiceWrapper';
 
 const deleteReminderAction = (data, navigation) => {
@@ -28,7 +28,7 @@ const deleteReminderAction = (data, navigation) => {
       type: remindersActionTypes.DELETE_REMINDER,
       payload: data,
     });
-    navigation.goBack(URLs.UpComingReminders);
+    navigation.goBack();
   };
 };
 

@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import remindersActionTypes from './remindersActionTypes';
 import APIs from '../../config';
-import { Status } from '../../Constants/Messages';
 import apiServiceWrapper from '../../apiServiceWrapper';
 
 const getAllRemindersAction = () => {
@@ -46,8 +45,7 @@ const getAllRemindersAction = () => {
 
     dispatch({
       type: remindersActionTypes.GET_REMINDER_DETAILS,
-      payload: sortedReminders.filter((item) => item.status !== Status.COMPLETED),
-      completedReminders: sortedReminders.filter((item) => item.status === Status.COMPLETED),
+      payload: sortedReminders,
     });
   };
 };
