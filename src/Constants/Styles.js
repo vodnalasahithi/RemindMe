@@ -139,6 +139,12 @@ const Styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  missedButtonSubmitContainerCompleted: {
+    padding: 25,
+    flex: 1,
+    alignItems: 'center',
+  },
+
   missedButton: {
     paddingTop: 0,
     backgroundColor: Colors.PRIMARY_COLOR,

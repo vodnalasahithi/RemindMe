@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import goalsActionTypes from './goalsActionTypes';
 import APIs from '../../config';
-import { Status } from '../../Constants/Messages';
 import apiServiceWrapper from '../../apiServiceWrapper';
 
 const getAllGoalsAction = () => {
@@ -44,8 +43,8 @@ const getAllGoalsAction = () => {
 
     dispatch({
       type: goalsActionTypes.GET_ALL_GOALS,
-      payload: loadedGoals.filter((item) => item.status !== Status.COMPLETED),
-      completedGoals: loadedGoals.filter((item) => item.status === Status.COMPLETED),
+      payload: loadedGoals,
+      // completedGoals: loadedGoals.filter((item) => item.status === Status.COMPLETED),
     });
   };
 };

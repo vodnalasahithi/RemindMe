@@ -2,7 +2,7 @@ import goalsActionTypes from './goalsActionTypes';
 
 const initialState = {
   allGoals: [],
-  completedGoals: [],
+  // completedGoals: [],
 };
 
 export default function (state, action) {
@@ -19,7 +19,7 @@ export default function (state, action) {
       return {
         ...state,
         allGoals: action.payload,
-        completedGoals: action.completedGoals,
+        // completedGoals: action.completedGoals,
       };
 
     case goalsActionTypes.DELETE_GOAL:
@@ -48,8 +48,22 @@ export default function (state, action) {
     case goalsActionTypes.GOAL_REACHED:
       return {
         ...state,
-        allGoals: state.allGoals.filter((item) => action.payload.goalId !== item.goalId),
-        completedGoals: state.completedGoals.concat(action.payload),
+        // allGoals: state.allGoals.filter((item) => action.payload.goalId !== item.goalId),
+        // completedGoals: state.completedGoals.concat(action.payload),
+
+        allGoals: state.allGoals.map((allGoalsObject) =>
+          allGoalsObject.goalId === action.payload.goalId
+            ? {
+                ...allGoalsObject,
+                status: action.payload.status,
+                daysLeft: action.payload.daysLeft,
+                progress: action.payload.progress,
+                goalCompletedTime: action.payload.goalCompletedTime,
+              }
+            : {
+                ...allGoalsObject,
+              }
+        ),
       };
 
     case goalsActionTypes.RESTART_GOAL:
@@ -64,6 +78,7 @@ export default function (state, action) {
                 goalStartDate: action.payload.goalStartDate,
                 goalEndDate: action.payload.goalEndDate,
                 goalCompletedTime: action.payload.goalCompletedTime,
+                status: action.payload.status,
               }
             : {
                 ...allGoalsObject,

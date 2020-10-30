@@ -1,10 +1,11 @@
+import { Status } from '../../Constants/Messages';
 import restartGoalAction from '../../redux/Goals/restartGoalAction';
 
 const confirmOnRestartGoal = (goalDetails, dispatch) => {
   const data = {
     key: goalDetails.key,
     goalId: goalDetails.goalId,
-    status: goalDetails.status,
+    status: Status.PENDING,
     goalDescription: goalDetails.goalDescription,
     goalTime: goalDetails.goalTime,
     email: goalDetails.email,

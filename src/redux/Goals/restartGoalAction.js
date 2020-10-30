@@ -1,6 +1,7 @@
 import goalsActionTypes from './goalsActionTypes';
 import APIs, { Method } from '../../config';
 import apiServiceWrapper from '../../apiServiceWrapper';
+import { sendGoalNotification } from '../../Helpers/sendNotification';
 
 const restartGoalAction = (data) => {
   return async (dispatch, getState) => {
@@ -16,6 +17,7 @@ const restartGoalAction = (data) => {
         goalStartDate: data.goalStartDate,
         goalEndDate: data.goalEndDate,
         goalCompletedTime: data.goalCompletedTime,
+        status: data.status,
       })
     );
 
@@ -24,6 +26,8 @@ const restartGoalAction = (data) => {
       const errorMessage = errorResData.error.message;
       throw new Error(errorMessage);
     }
+
+    await sendGoalNotification(data);
 
     dispatch({
       type: goalsActionTypes.RESTART_GOAL,

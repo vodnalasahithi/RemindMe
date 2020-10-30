@@ -12,7 +12,6 @@ const DatePicker = ({ mode, date, onChange }) => {
         display="default"
         onChange={onChange}
         minimumDate={new Date()}
-        is24Hour
       />
     </View>
   );

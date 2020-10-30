@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import Loader from '../../Components/Loader';
 import getAllGoalsAction from '../../redux/Goals/getAllGoalsAction';
-import { getAllGoals } from '../../redux/Goals/goalsSelectors';
+import { getAllPendingGoals } from '../../redux/Goals/goalsSelectors';
 import TextComponent from '../../Components/TextComponent';
 import AddButton from '../../Components/AddButton';
 import Messages, { URLs, Sizes } from '../../Constants/Messages';
 
 const UpcomingGoalsContainer = (props) => {
-  const allGoalsArray = useSelector(getAllGoals);
+  const allGoalsArray = useSelector(getAllPendingGoals);
   const dispatch = useDispatch();
 
   const [error, setError] = useState();

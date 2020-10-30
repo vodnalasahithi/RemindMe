@@ -26,6 +26,12 @@ const CompletedGoals = ({ navigation }) => {
                 goalId={itemData.item.goalId}
                 cardContainer={styles.cardContainer}
                 text={styles.text}
+                touchableOpacity={styles.touchableOpacity}
+                navigationFunction={() =>
+                  navigation.navigate(URLs.GoalDetails, {
+                    id: itemData.item.goalId,
+                  })
+                }
               />
             )}
           />
